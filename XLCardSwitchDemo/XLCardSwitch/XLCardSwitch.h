@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol XLCardSwitchDelegate <NSObject>
+
+-(void)XLCardSwitchDidSelectedAt:(NSInteger)index;
+
+@end
+
 @interface XLCardSwitch : UIView
 
 @property (strong,nonatomic) NSArray *models;
+
+@property (weak,nonatomic) id<XLCardSwitchDelegate>delegate;
 
 @end

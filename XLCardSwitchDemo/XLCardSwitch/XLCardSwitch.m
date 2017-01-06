@@ -139,13 +139,13 @@ static float viewScale = 0.70f;
     //设置滚动最小生效范围，滚动超过scrollMiniDistance 即视为有切换卡片的意向
     float scrollMiniDistance = self.bounds.size.width/30.0f;
     if (_startPointX - _endPointX > scrollMiniDistance) {
-        NSLog(@"向右滑动屏幕");
+//        NSLog(@"向右滑动屏幕");
         if (_currentIndex != 0) {
             _currentIndex -= 1;
         }
     }else if (_endPointX - _startPointX  > scrollMiniDistance)
     {
-        NSLog(@"向左滑动屏幕");
+//        NSLog(@"向左滑动屏幕");
         if (_currentIndex != _cards.count - 1) {
             _currentIndex += 1;
         }
@@ -155,6 +155,10 @@ static float viewScale = 0.70f;
     [_scrollView setContentOffset:CGPointMake(needX, 0) animated:true];
     
     [self configBackGroundImage];
+    
+    if ([_delegate respondsToSelector:@selector(XLCardSwitchDidSelectedAt:)]) {
+        [_delegate XLCardSwitchDidSelectedAt:_currentIndex];
+    }
 }
 
 

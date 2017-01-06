@@ -10,7 +10,7 @@
 #import "XLCardSwitch.h"
 #import "CardModel.h"
 
-@interface ViewController ()
+@interface ViewController ()<XLCardSwitchDelegate>
 
 @end
 
@@ -30,24 +30,22 @@
         [models addObject:model];
     }
     
-    XLCardSwitch *switchView = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 0, [self ScreenWidth], [self ScreenHeight])];
+    XLCardSwitch *switchView = [[XLCardSwitch alloc] initWithFrame:self.view.bounds];
     switchView.center = self.view.center;
-    //设置显示卡片的数量
     switchView.models = models;
+    switchView.delegate = self;
     [self.view addSubview:switchView];
     
 }
 
-//屏幕宽度
--(CGFloat)ScreenWidth
+#pragma mark -
+#pragma mark XLSlideSwitchDelegate
+
+-(void)XLCardSwitchDidSelectedAt:(NSInteger)index
 {
-    return [UIScreen mainScreen].bounds.size.width;
+    NSLog(@"滚动到第%zd张卡片",index);
 }
-//屏幕高度
--(CGFloat)ScreenHeight
-{
-    return [UIScreen mainScreen].bounds.size.height;
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
