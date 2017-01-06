@@ -5,4 +5,4 @@
  <br>
  ![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/1.gif)
 <br>
-## 实现原理请参考[我的博文](http://blog.csdn.net/u013282507/article/details/53103816)
+## 实现原理请参考[我的博文](http://blog.csdn.net/u013282507/article/details/54136812)
