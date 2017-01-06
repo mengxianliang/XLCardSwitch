@@ -32,9 +32,10 @@
     
     XLCardSwitch *switchView = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 0, [self ScreenWidth], [self ScreenHeight])];
     switchView.center = self.view.center;
-    [self.view addSubview:switchView];
     //设置显示卡片的数量
     switchView.models = models;
+    [self.view addSubview:switchView];
+    
 }
 
 //屏幕宽度
