@@ -10,6 +10,8 @@
 
 @protocol XLCardSwitchDelegate <NSObject>
 
+@optional
+
 -(void)XLCardSwitchDidSelectedAt:(NSInteger)index;
 
 @end
