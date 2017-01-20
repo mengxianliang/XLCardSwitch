@@ -7,7 +7,7 @@
 //
 
 #import "XLCard.h"
-#import "CardModel.h"
+#import "XLCardModel.h"
 
 @interface XLCard ()
 {
@@ -49,9 +49,8 @@
 
 -(void)setModel:(id)model
 {
-    CardModel *cardModel = (CardModel*)model;
+    XLCardModel *cardModel = (XLCardModel*)model;
     _imageView.image = [UIImage imageNamed:cardModel.imageName];
     _textLabel.text = cardModel.title;
 }
-
 @end

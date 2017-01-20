@@ -1,10 +1,10 @@
 //
-//  CardSwitchView.h
-//  CardSwitchDemo
+//  XLCardSwitch.h
+//  XLCardSwitchDemo
 //
-//  Created by Apple on 2016/11/9.
-//  Copyright © 2016年 Apple. All rights reserved.
-//  图片切换效果视图
+//  Created by Apple on 2017/1/20.
+//  Copyright © 2017年 Apple. All rights reserved.
+//
 
 #import <UIKit/UIKit.h>
 
@@ -12,6 +12,7 @@
 
 @optional
 
+//滚动代理方法
 -(void)XLCardSwitchDidSelectedAt:(NSInteger)index;
 
 @end

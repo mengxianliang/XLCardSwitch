@@ -1,33 +1,31 @@
 //
-//  CardSwitchView.m
-//  CardSwitchDemo
+//  XLCardSwitch.m
+//  XLCardSwitchDemo
 //
-//  Created by Apple on 2016/11/9.
-//  Copyright © 2016年 Apple. All rights reserved.
+//  Created by Apple on 2017/1/20.
+//  Copyright © 2017年 Apple. All rights reserved.
 //
 
 #import "XLCardSwitch.h"
+#import "XLCardSwitchFlowLayout.h"
 #import "XLCard.h"
+#import "XLCardModel.h"
 
-#import "CardModel.h"
+//居中卡片宽度与据屏幕宽度比例
+static float CardWidthScale = 0.7f;
+static float CardHeightScale = 0.8f;
 
-//播放器界面的的宽度所占的比例
-static float viewScale = 0.70f;
-
-@interface XLCardSwitch ()<UIScrollViewDelegate>
+@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 {
-    //用于切换的ScrollView
-    UIScrollView *_scrollView;
-    //用于保存各个视图
-    NSMutableArray *_cards;
-    //滚动之前的位置
-    CGFloat _startPointX;
-    //滚动之后的位置
-    CGFloat _endPointX;
-    //需要居中显示的index
+    UIImageView *_imageView;
+    
+    UICollectionView *_collectionView;
+    
     NSInteger _currentIndex;
-    //背景图
-    UIImageView *_backImageView;
+    
+    CGFloat _dragStartX;
+    
+    CGFloat _dragEndX;
 }
 @end
 
@@ -36,159 +34,154 @@ static float viewScale = 0.70f;
 -(instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [self buildLayout];
+        [self buildUI];
     }
     return self;
 }
 
--(void)buildLayout
+-(void)buildUI
 {
+    [self addImageView];
     
-    _backImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    [self addSubview:_backImageView];
+    [self addCollectionView];
+}
+
+-(void)addImageView
+{
+    _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    [self addSubview:_imageView];
     
     UIBlurEffect* effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView* effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    effectView.frame = _backImageView.bounds;
-    [_backImageView addSubview:effectView];
+    effectView.frame = _imageView.bounds;
+    [_imageView addSubview:effectView];
+}
+
+-(void)addCollectionView
+{
+    XLCardSwitchFlowLayout *flowLayout = [[XLCardSwitchFlowLayout alloc] init];
+    [flowLayout setItemSize:CGSizeMake([self cellWidth],self.bounds.size.height * CardHeightScale)];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    [flowLayout setMinimumLineSpacing:[self cellMargin]];
     
-    //初始化ScrollView
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
-    _scrollView.delegate = self;
-    _scrollView.showsHorizontalScrollIndicator = false;
-    [self addSubview:_scrollView];
-    
-    //初始化其他参数
-    _cards = [[NSMutableArray alloc] init];
-    _currentIndex = 0;
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    _collectionView.showsHorizontalScrollIndicator = false;
+    _collectionView.backgroundColor = [UIColor clearColor];
+    [_collectionView registerClass:[XLCard class] forCellWithReuseIdentifier:@"XLCard"];
+    [_collectionView setUserInteractionEnabled:YES];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    [self addSubview:_collectionView];
 }
 
 #pragma mark -
-#pragma mark 视图Frame配置
-
-//卡片宽度
--(float)cardWidth
-{
-    return viewScale*self.bounds.size.width;
-}
-
-//卡片间隔
--(float)margin
-{
-    return (self.bounds.size.width - [self cardWidth])/4;
-}
-//卡片起始位置
--(float)startX
-{
-    return (self.bounds.size.width - [self cardWidth])/2.0f;
-}
-
-#pragma mark -
-#pragma mark 配置轮播图片
-
+#pragma mark Setter
 -(void)setModels:(NSArray *)models
 {
     _models = models;
-    //初始化各个卡片器位置
-    for (NSInteger i = 0; i<models.count; i++ ) {
-        //第一步 在ScrollView上添加卡片
-        CGFloat cardHeight = self.bounds.size.height * viewScale;
-        CGFloat cardY = (self.bounds.size.height - cardHeight)/2.0f;
-        float viewX = [self startX] + i*([self cardWidth] + [self margin]);
-        XLCard* card = [[XLCard alloc] initWithFrame:CGRectMake(viewX, cardY, [self cardWidth], cardHeight)];
-        card.model = models[i];
-        [_scrollView addSubview:card];
-        [_cards addObject:card];
-        [_scrollView setContentSize:CGSizeMake(card.frame.origin.x + [self cardWidth] + 2*[self margin], 0)];
+    if (_models.count) {
+        XLCardModel *model = _models.firstObject;
+        _imageView.image = [UIImage imageNamed:model.imageName];
     }
-    //更新卡片的大小
-    [self updateCardTransform];
-    
-    [self configBackGroundImage];
-
 }
-
 
 #pragma mark -
-#pragma mark ScrollView代理方法
-//开始拖动时保存起始位置
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    _startPointX = scrollView.contentOffset.x;
-}
+#pragma mark CollectionDelegate
 
-//当ScrollView拖动时 变换每个view的大小，并保证居中屏幕的view高度最高
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//配置cell居中
+-(void)fixCellToCenter
 {
-    [self updateCardTransform];
-}
-
-//滚动结束，自动回弹到居中卡片
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    //卡片滚动到视图中间位置
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self scrollToCurrentCard];
-    });
-}
-
-//卡片自动居中
--(void)scrollToCurrentCard
-{
-    _endPointX = _scrollView.contentOffset.x;
-    //设置滚动最小生效范围，滚动超过scrollMiniDistance 即视为有切换卡片的意向
-    float scrollMiniDistance = self.bounds.size.width/30.0f;
-    if (_startPointX - _endPointX > scrollMiniDistance) {
-//        NSLog(@"向右滑动屏幕");
-        if (_currentIndex != 0) {
-            _currentIndex -= 1;
-        }
-    }else if (_endPointX - _startPointX  > scrollMiniDistance)
-    {
-//        NSLog(@"向左滑动屏幕");
-        if (_currentIndex != _cards.count - 1) {
-            _currentIndex += 1;
-        }
+    //最小滚动距离
+    float dragMiniDistance = self.bounds.size.width/20.0f;
+    if (_dragStartX -  _dragEndX >= dragMiniDistance) {
+        _currentIndex -= 1;//向右
+    }else if(_dragEndX -  _dragStartX >= dragMiniDistance){
+        _currentIndex += 1;//向左
     }
-    float viewX = [self startX] + _currentIndex*([self cardWidth] + [self margin]);
-    float needX = viewX - [self startX];
-    [_scrollView setContentOffset:CGPointMake(needX, 0) animated:true];
+    NSInteger maxIndex = [_collectionView numberOfItemsInSection:0] - 1;
+    _currentIndex = _currentIndex <= 0 ? 0 : _currentIndex;
+    _currentIndex = _currentIndex >= maxIndex ? maxIndex : _currentIndex;
     
-    [self configBackGroundImage];
+    [self scrollToCenter];
+}
+
+-(void)scrollToCenter
+{
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    
+    XLCardModel *model = _models[_currentIndex];
+    _imageView.image = [UIImage imageNamed:model.imageName];
     
     if ([_delegate respondsToSelector:@selector(XLCardSwitchDidSelectedAt:)]) {
         [_delegate XLCardSwitchDidSelectedAt:_currentIndex];
     }
 }
 
-
-//更新每个卡片的大小
--(void)updateCardTransform
+#pragma mark -
+#pragma mark CollectionDelegate
+//手指拖动开始
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    for (XLCard *card in _cards) {
-        //获取卡片所在index
-        //获取ScrollView滚动的位置
-        CGFloat scrollOffset = _scrollView.contentOffset.x;
-        //获取卡片中间位置滚动的相对位置
-        CGFloat cardCenterX = card.center.x - scrollOffset;
-        //获取卡片中间位置和俯视图中间位置的间距，目标是间距越大卡片越短
-        CGFloat apartLength = fabs(self.bounds.size.width/2.0f - cardCenterX);
-        //移动的距离和屏幕宽度的的比例
-        CGFloat apartScale = apartLength/self.bounds.size.width;
-        //把卡片移动范围固定到 -π/4到 +π/4这一个范围内
-        CGFloat scale = fabs(cos(apartScale * M_PI/4));
-        //设置卡片的缩放
-        card.transform = CGAffineTransformMakeScale(1.0, scale);
-    }
+    _dragStartX = scrollView.contentOffset.x;
 }
 
-
--(void)configBackGroundImage
+//手指拖动停止
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (!_models) {return;}
-    
-    CardModel *model = _models[_currentIndex];
-    _backImageView.image = [UIImage imageNamed:model.imageName];
+    _dragEndX = scrollView.contentOffset.x;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self fixCellToCenter];
+    });
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    _currentIndex = indexPath.row;
+    [self scrollToCenter];
+}
+
+#pragma mark -
+#pragma mark CollectionDataSource
+
+//卡片宽度
+-(CGFloat)cellWidth
+{
+    return self.bounds.size.width * CardWidthScale;
+}
+
+//卡片间隔
+-(float)cellMargin
+{
+    return (self.bounds.size.width - [self cellWidth])/4;
+}
+
+//设置左右缩进
+-(CGFloat)collectionInset
+{
+    return self.bounds.size.width/2.0f - [self cellWidth]/2.0f;
+}
+
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, [self collectionInset], 0, [self collectionInset]);
+}
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return _models.count;
+}
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString* cellId = @"XLCard";
+    XLCard* card = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    card.model = _models[indexPath.row];
+    return  card;
 }
 
 

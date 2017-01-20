@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface XLCard : UIView
+@interface XLCard : UICollectionViewCell
 
 @property (strong,nonatomic) id model;
 

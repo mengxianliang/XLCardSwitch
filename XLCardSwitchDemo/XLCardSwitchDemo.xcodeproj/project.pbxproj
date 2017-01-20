@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		18760D0F1E1F4C9800007F02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D0E1E1F4C9800007F02 /* main.m */; };
 		18760D121E1F4C9800007F02 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D111E1F4C9800007F02 /* AppDelegate.m */; };
-		18760D151E1F4C9800007F02 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D141E1F4C9800007F02 /* ViewController.m */; };
-		18760D181E1F4C9800007F02 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18760D161E1F4C9800007F02 /* Main.storyboard */; };
 		18760D1A1E1F4C9800007F02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18760D191E1F4C9800007F02 /* Assets.xcassets */; };
 		18760D1D1E1F4C9800007F02 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18760D1B1E1F4C9800007F02 /* LaunchScreen.storyboard */; };
 		18760D361E1F4CF700007F02 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 18760D291E1F4CF700007F02 /* 1.png */; };
@@ -26,10 +24,12 @@
 		18760D401E1F4CF700007F02 /* 7.png in Resources */ = {isa = PBXBuildFile; fileRef = 18760D331E1F4CF700007F02 /* 7.png */; };
 		18760D411E1F4CF700007F02 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 18760D341E1F4CF700007F02 /* 8.png */; };
 		18760D421E1F4CF700007F02 /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 18760D351E1F4CF700007F02 /* 9.png */; };
-		18760D451E1F4D0C00007F02 /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D441E1F4D0C00007F02 /* CardModel.m */; };
 		18760D471E1F4D1300007F02 /* DataPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18760D461E1F4D1300007F02 /* DataPropertyList.plist */; };
 		18760D4C1E1F4D2800007F02 /* XLCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D491E1F4D2800007F02 /* XLCard.m */; };
-		18760D4D1E1F4D2800007F02 /* XLCardSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D4B1E1F4D2800007F02 /* XLCardSwitch.m */; };
+		18AEF9581E32090E00D8FD57 /* XLCardSwitchFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */; };
+		18AEF95B1E32497000D8FD57 /* XLCardSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */; };
+		18AEF9611E324BC600D8FD57 /* XLCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9601E324BC600D8FD57 /* XLCardModel.m */; };
+		18AEF9641E324BEA00D8FD57 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9631E324BEA00D8FD57 /* DemoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +37,6 @@
 		18760D0E1E1F4C9800007F02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		18760D101E1F4C9800007F02 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18760D111E1F4C9800007F02 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		18760D131E1F4C9800007F02 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		18760D141E1F4C9800007F02 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		18760D171E1F4C9800007F02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18760D191E1F4C9800007F02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18760D1C1E1F4C9800007F02 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18760D1E1E1F4C9800007F02 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,13 +53,17 @@
 		18760D331E1F4CF700007F02 /* 7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 7.png; sourceTree = "<group>"; };
 		18760D341E1F4CF700007F02 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		18760D351E1F4CF700007F02 /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
-		18760D431E1F4D0C00007F02 /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
-		18760D441E1F4D0C00007F02 /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
 		18760D461E1F4D1300007F02 /* DataPropertyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataPropertyList.plist; sourceTree = "<group>"; };
 		18760D481E1F4D2800007F02 /* XLCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCard.h; sourceTree = "<group>"; };
 		18760D491E1F4D2800007F02 /* XLCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCard.m; sourceTree = "<group>"; };
-		18760D4A1E1F4D2800007F02 /* XLCardSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardSwitch.h; sourceTree = "<group>"; };
-		18760D4B1E1F4D2800007F02 /* XLCardSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitch.m; sourceTree = "<group>"; };
+		18AEF9561E32090E00D8FD57 /* XLCardSwitchFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardSwitchFlowLayout.h; sourceTree = "<group>"; };
+		18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitchFlowLayout.m; sourceTree = "<group>"; };
+		18AEF9591E32497000D8FD57 /* XLCardSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardSwitch.h; sourceTree = "<group>"; };
+		18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitch.m; sourceTree = "<group>"; };
+		18AEF95F1E324BC600D8FD57 /* XLCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardModel.h; sourceTree = "<group>"; };
+		18AEF9601E324BC600D8FD57 /* XLCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardModel.m; sourceTree = "<group>"; };
+		18AEF9621E324BEA00D8FD57 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		18AEF9631E324BEA00D8FD57 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +101,6 @@
 			children = (
 				18760D101E1F4C9800007F02 /* AppDelegate.h */,
 				18760D111E1F4C9800007F02 /* AppDelegate.m */,
-				18760D131E1F4C9800007F02 /* ViewController.h */,
-				18760D141E1F4C9800007F02 /* ViewController.m */,
-				18760D161E1F4C9800007F02 /* Main.storyboard */,
 				18760D191E1F4C9800007F02 /* Assets.xcassets */,
 				18760D1B1E1F4C9800007F02 /* LaunchScreen.storyboard */,
 				18760D1E1E1F4C9800007F02 /* Info.plist */,
@@ -122,7 +120,8 @@
 		18760D241E1F4CB200007F02 /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				18760D261E1F4CC900007F02 /* Model */,
+				18AEF9621E324BEA00D8FD57 /* DemoViewController.h */,
+				18AEF9631E324BEA00D8FD57 /* DemoViewController.m */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -136,22 +135,17 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		18760D261E1F4CC900007F02 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				18760D431E1F4D0C00007F02 /* CardModel.h */,
-				18760D441E1F4D0C00007F02 /* CardModel.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		18760D271E1F4CE100007F02 /* XLCardSwitch */ = {
 			isa = PBXGroup;
 			children = (
+				18AEF9591E32497000D8FD57 /* XLCardSwitch.h */,
+				18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */,
+				18AEF9561E32090E00D8FD57 /* XLCardSwitchFlowLayout.h */,
+				18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */,
 				18760D481E1F4D2800007F02 /* XLCard.h */,
 				18760D491E1F4D2800007F02 /* XLCard.m */,
-				18760D4A1E1F4D2800007F02 /* XLCardSwitch.h */,
-				18760D4B1E1F4D2800007F02 /* XLCardSwitch.m */,
+				18AEF95F1E324BC600D8FD57 /* XLCardModel.h */,
+				18AEF9601E324BC600D8FD57 /* XLCardModel.m */,
 			);
 			path = XLCardSwitch;
 			sourceTree = "<group>";
@@ -207,7 +201,7 @@
 				TargetAttributes = {
 					18760D091E1F4C9800007F02 = {
 						CreatedOnToolsVersion = 8.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -250,7 +244,6 @@
 				18760D3B1E1F4CF700007F02 /* 2.png in Resources */,
 				18760D3E1E1F4CF700007F02 /* 5.png in Resources */,
 				18760D1A1E1F4C9800007F02 /* Assets.xcassets in Resources */,
-				18760D181E1F4C9800007F02 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,25 +255,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				18760D4C1E1F4D2800007F02 /* XLCard.m in Sources */,
-				18760D151E1F4C9800007F02 /* ViewController.m in Sources */,
-				18760D451E1F4D0C00007F02 /* CardModel.m in Sources */,
+				18AEF9611E324BC600D8FD57 /* XLCardModel.m in Sources */,
+				18AEF9581E32090E00D8FD57 /* XLCardSwitchFlowLayout.m in Sources */,
 				18760D121E1F4C9800007F02 /* AppDelegate.m in Sources */,
 				18760D0F1E1F4C9800007F02 /* main.m in Sources */,
-				18760D4D1E1F4D2800007F02 /* XLCardSwitch.m in Sources */,
+				18AEF9641E324BEA00D8FD57 /* DemoViewController.m in Sources */,
+				18AEF95B1E32497000D8FD57 /* XLCardSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		18760D161E1F4C9800007F02 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18760D171E1F4C9800007F02 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		18760D1B1E1F4C9800007F02 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -384,7 +370,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = XLCardSwitchDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mxl.XLCardSwitchDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -395,7 +383,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = XLCardSwitchDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mxl.XLCardSwitchDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -421,6 +411,7 @@
 				18760D231E1F4C9800007F02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
