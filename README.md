@@ -8,12 +8,15 @@
 # 使用方法
 <br>
 ```objc
-    创建方法
+创建方法
+-(void)addCardSwitch
+{
     _cardSwitch = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
     _cardSwitch.models = models;
     _cardSwitch.delegate = self;
     [self.view addSubview:_cardSwitch];
-    代理方法
+}
+代理方法
 -(void)XLCardSwitchDidSelectedAt:(NSInteger)index
 {
     NSLog(@"选中了：%zd",index);
