@@ -3,7 +3,7 @@
  <br>
 ## 显示效果如下
  <br>
- ![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/1.gif =100x100)
+ ![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/1.gif =100)
  <br>
 # 使用方法
 <br>
