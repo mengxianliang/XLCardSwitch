@@ -1,5 +1,5 @@
 # XLCardSwitch
-利用余弦函数实现的图片浏览工具
+利用余弦函数实现的图片浏览工具，内部是利用UICollectionview的滚动实现的。
  <br>
 ## 显示效果如下
  <br>
