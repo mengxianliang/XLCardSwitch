@@ -4,7 +4,7 @@
 
 ## 显示效果如下 
 
-![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/1.gif)
+<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/1.gif" width=300 height=538 />
 
 ## 使用方法 
 
