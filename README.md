@@ -4,6 +4,13 @@
 
 ## 显示效果如下 
 
+|手指拖动切换|调用方法切换|
+|:---:|:---:|
+|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif" width=300 height=538 />|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif" width=300 height=538 />|
+
+
+
+
 <img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/1.gif" width=300 height=538 />
 
 ## 使用方法 
