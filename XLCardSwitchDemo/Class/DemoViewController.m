@@ -52,15 +52,15 @@
 
 - (void)switchPrevious {
     
-    NSInteger nextIndex = _cardSwitch.selectedIndex - 1;
-    nextIndex = nextIndex < 0 ? 0 : nextIndex;
-    [_cardSwitch switchToIndex:nextIndex animated:true];
+    NSInteger index = _cardSwitch.selectedIndex - 1;
+    index = index < 0 ? 0 : index;
+    [_cardSwitch switchToIndex:index animated:true];
 }
 
 - (void)switchNext {
-    NSInteger nextIndex = _cardSwitch.selectedIndex + 1;
-    nextIndex = nextIndex > _cardSwitch.models.count + 1 ? _cardSwitch.models.count + 1 : nextIndex;
-    [_cardSwitch switchToIndex:nextIndex animated:true];
+    NSInteger index = _cardSwitch.selectedIndex + 1;
+    index = index > _cardSwitch.models.count + 1 ? _cardSwitch.models.count + 1 : index;
+    [_cardSwitch switchToIndex:index animated:true];
 }
 
 - (void)didReceiveMemoryWarning {
