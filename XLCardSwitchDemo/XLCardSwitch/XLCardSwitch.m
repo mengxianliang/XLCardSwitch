@@ -21,8 +21,6 @@ static float CardHeightScale = 0.8f;
     
     UICollectionView *_collectionView;
     
-    NSInteger _currentIndex;
-    
     CGFloat _dragStartX;
     
     CGFloat _dragEndX;
@@ -94,27 +92,25 @@ static float CardHeightScale = 0.8f;
     //最小滚动距离
     float dragMiniDistance = self.bounds.size.width/20.0f;
     if (_dragStartX -  _dragEndX >= dragMiniDistance) {
-        _currentIndex -= 1;//向右
+        _selectedIndex -= 1;//向右
     }else if(_dragEndX -  _dragStartX >= dragMiniDistance){
-        _currentIndex += 1;//向左
+        _selectedIndex += 1;//向左
     }
     NSInteger maxIndex = [_collectionView numberOfItemsInSection:0] - 1;
-    _currentIndex = _currentIndex <= 0 ? 0 : _currentIndex;
-    _currentIndex = _currentIndex >= maxIndex ? maxIndex : _currentIndex;
+    _selectedIndex = _selectedIndex <= 0 ? 0 : _selectedIndex;
+    _selectedIndex = _selectedIndex >= maxIndex ? maxIndex : _selectedIndex;
     
     [self scrollToCenter];
 }
 
 -(void)scrollToCenter
 {
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_currentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
-    XLCardModel *model = _models[_currentIndex];
+    XLCardModel *model = _models[_selectedIndex];
     _imageView.image = [UIImage imageNamed:model.imageName];
     
-    if ([_delegate respondsToSelector:@selector(XLCardSwitchDidSelectedAt:)]) {
-        [_delegate XLCardSwitchDidSelectedAt:_currentIndex];
-    }
+    [self performDelegateMethod];
 }
 
 #pragma mark -
@@ -136,7 +132,7 @@ static float CardHeightScale = 0.8f;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    _currentIndex = indexPath.row;
+    _selectedIndex = indexPath.row;
     [self scrollToCenter];
 }
 
@@ -182,6 +178,25 @@ static float CardHeightScale = 0.8f;
     XLCard* card = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     card.model = _models[indexPath.row];
     return  card;
+}
+
+#pragma mark -
+#pragma mark 功能方法
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex {
+    [self switchToIndex:selectedIndex animated:false];
+}
+
+- (void)switchToIndex:(NSInteger)index animated:(BOOL)animated {
+    _selectedIndex = index;
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
+    [self performDelegateMethod];
+}
+
+- (void)performDelegateMethod {
+    if ([_delegate respondsToSelector:@selector(XLCardSwitchDidSelectedAt:)]) {
+        [_delegate XLCardSwitchDidSelectedAt:_selectedIndex];
+    }
 }
 
 

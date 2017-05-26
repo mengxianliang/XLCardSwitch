@@ -10,8 +10,7 @@
 #import "XLCardSwitch.h"
 #import "XLCardModel.h"
 
-@interface DemoViewController ()<XLCardSwitchDelegate>
-{
+@interface DemoViewController ()<XLCardSwitchDelegate> {
     XLCardSwitch *_cardSwitch;
 }
 
@@ -38,12 +37,31 @@
     _cardSwitch = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
     _cardSwitch.models = models;
     _cardSwitch.delegate = self;
+    //设置初始位置，默认为0
+    _cardSwitch.selectedIndex = 3;
     [self.view addSubview:_cardSwitch];
+    
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(switchRewind)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(switchForward)];
+ }
+
+- (void)XLCardSwitchDidSelectedAt:(NSInteger)index {
+    NSLog(@"选中了：%zd",index);
 }
 
--(void)XLCardSwitchDidSelectedAt:(NSInteger)index
-{
-    NSLog(@"选中了：%zd",index);
+- (void)switchRewind {
+    
+    NSInteger nextIndex = _cardSwitch.selectedIndex - 1;
+    nextIndex = nextIndex < 0 ? 0 : nextIndex;
+    [_cardSwitch switchToIndex:nextIndex animated:true];
+}
+
+- (void)switchForward {
+    NSInteger nextIndex = _cardSwitch.selectedIndex + 1;
+    nextIndex = nextIndex > _cardSwitch.models.count - 1 ? _cardSwitch.models.count - 1 : nextIndex;
+    [_cardSwitch switchToIndex:nextIndex animated:true];
 }
 
 - (void)didReceiveMemoryWarning {

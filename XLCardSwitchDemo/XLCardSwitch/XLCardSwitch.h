@@ -19,8 +19,16 @@
 
 @interface XLCardSwitch : UIView
 
-@property (strong,nonatomic) NSArray *models;
+//当前选中位置
+@property (nonatomic ,assign, readwrite) NSInteger selectedIndex;
 
-@property (weak,nonatomic) id<XLCardSwitchDelegate>delegate;
+//设置数据源
+@property (nonatomic, strong) NSArray *models;
+
+//代理
+@property (nonatomic, weak) id<XLCardSwitchDelegate>delegate;
+
+//手动滚动到某个卡片位置
+- (void)switchToIndex:(NSInteger)index animated:(BOOL)animated;
 
 @end
