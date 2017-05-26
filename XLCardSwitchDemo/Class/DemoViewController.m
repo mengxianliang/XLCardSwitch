@@ -41,25 +41,25 @@
     _cardSwitch.selectedIndex = 3;
     [self.view addSubview:_cardSwitch];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(switchRewind)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(switchPrevious)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(switchForward)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(switchNext)];
  }
 
 - (void)XLCardSwitchDidSelectedAt:(NSInteger)index {
     NSLog(@"选中了：%zd",index);
 }
 
-- (void)switchRewind {
+- (void)switchPrevious {
     
     NSInteger nextIndex = _cardSwitch.selectedIndex - 1;
     nextIndex = nextIndex < 0 ? 0 : nextIndex;
     [_cardSwitch switchToIndex:nextIndex animated:true];
 }
 
-- (void)switchForward {
+- (void)switchNext {
     NSInteger nextIndex = _cardSwitch.selectedIndex + 1;
-    nextIndex = nextIndex > _cardSwitch.models.count - 1 ? _cardSwitch.models.count - 1 : nextIndex;
+    nextIndex = nextIndex > _cardSwitch.models.count + 1 ? _cardSwitch.models.count + 1 : nextIndex;
     [_cardSwitch switchToIndex:nextIndex animated:true];
 }
 
