@@ -46,4 +46,4 @@ _cardSwitch.selectedIndex = 3;
 
 ### 实现原理请参考[我的博文](http://blog.csdn.net/u013282507/article/details/54136812) 
 
-
+### 个人开发过的UI工具集合 [XLUIKit](https://github.com/mengxianliang/XLUIKit)
