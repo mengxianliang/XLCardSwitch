@@ -19,8 +19,7 @@
 **创建方法:**
 
 ```objc
--(void)addCardSwitch
-{
+- (void)addCardSwitch {
     _cardSwitch = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
     _cardSwitch.models = models;
     _cardSwitch.delegate = self;
@@ -39,8 +38,7 @@ _cardSwitch.selectedIndex = 3;
 **代理方法:**
 
 ```objc
--(void)XLCardSwitchDidSelectedAt:(NSInteger)index
-{
+- (void)XLCardSwitchDidSelectedAt:(NSInteger)index {
     NSLog(@"选中了：%zd",index);
 }
 ```
