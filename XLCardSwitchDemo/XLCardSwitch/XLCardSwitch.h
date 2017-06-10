@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XLCardModel.h"
 
 @protocol XLCardSwitchDelegate <NSObject>
 
@@ -27,15 +28,22 @@
 /**
  设置数据源
  */
-@property (nonatomic, strong) NSArray *models;
+@property (nonatomic, strong) NSArray <XLCardModel *>*models;
 /**
  代理
  */
 @property (nonatomic, weak) id<XLCardSwitchDelegate>delegate;
 
 /**
+ 是否分页，默认为true
+ */
+@property (nonatomic, assign) BOOL pagingEnabled;
+
+/**
  手动滚动到某个卡片位置
  */
 - (void)switchToIndex:(NSInteger)index animated:(BOOL)animated;
+
+
 
 @end

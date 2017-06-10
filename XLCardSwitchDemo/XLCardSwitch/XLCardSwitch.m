@@ -9,15 +9,12 @@
 #import "XLCardSwitch.h"
 #import "XLCardSwitchFlowLayout.h"
 #import "XLCard.h"
-#import "XLCardModel.h"
 
 //居中卡片宽度与据屏幕宽度比例
 static float CardWidthScale = 0.7f;
 static float CardHeightScale = 0.8f;
 
 @interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout> {
-    
-    UIImageView *_imageView;
     
     UICollectionView *_collectionView;
     
@@ -37,22 +34,15 @@ static float CardHeightScale = 0.8f;
 }
 
 - (void)buildUI {
-    [self addImageView];
     
     [self addCollectionView];
 }
 
-- (void)addImageView {
-    _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-    [self addSubview:_imageView];
-    
-    UIBlurEffect* effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-    UIVisualEffectView* effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    effectView.frame = _imageView.bounds;
-    [_imageView addSubview:effectView];
-}
-
 - (void)addCollectionView {
+    
+    //避免UINavigation对UIScrollView产生的便宜问题
+    [self addSubview:[UIView new]];
+    
     XLCardSwitchFlowLayout *flowLayout = [[XLCardSwitchFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake([self cellWidth],self.bounds.size.height * CardHeightScale)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -62,7 +52,7 @@ static float CardHeightScale = 0.8f;
     _collectionView.showsHorizontalScrollIndicator = false;
     _collectionView.backgroundColor = [UIColor clearColor];
     [_collectionView registerClass:[XLCard class] forCellWithReuseIdentifier:@"XLCard"];
-    [_collectionView setUserInteractionEnabled:YES];
+    _collectionView.userInteractionEnabled = true;
     _collectionView.delegate = self;
     _collectionView.dataSource = self;
     [self addSubview:_collectionView];
@@ -72,10 +62,7 @@ static float CardHeightScale = 0.8f;
 #pragma mark Setter
 - (void)setModels:(NSArray *)models {
     _models = models;
-    if (_models.count) {
-        XLCardModel *model = _models.firstObject;
-        _imageView.image = [UIImage imageNamed:model.imageName];
-    }
+    [_collectionView reloadData];
 }
 
 #pragma mark -
@@ -93,15 +80,12 @@ static float CardHeightScale = 0.8f;
     NSInteger maxIndex = [_collectionView numberOfItemsInSection:0] - 1;
     _selectedIndex = _selectedIndex <= 0 ? 0 : _selectedIndex;
     _selectedIndex = _selectedIndex >= maxIndex ? maxIndex : _selectedIndex;
-    
     [self scrollToCenter];
 }
 
 - (void)scrollToCenter {
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
-    XLCardModel *model = _models[_selectedIndex];
-    _imageView.image = [UIImage imageNamed:model.imageName];
+    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
     [self performDelegateMethod];
 }
@@ -115,6 +99,7 @@ static float CardHeightScale = 0.8f;
 
 //手指拖动停止
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (!_pagingEnabled) {return;}
     _dragEndX = scrollView.contentOffset.x;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self fixCellToCenter];
