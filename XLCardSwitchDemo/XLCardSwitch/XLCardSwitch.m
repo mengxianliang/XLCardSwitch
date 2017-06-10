@@ -15,8 +15,8 @@
 static float CardWidthScale = 0.7f;
 static float CardHeightScale = 0.8f;
 
-@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
-{
+@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout> {
+    
     UIImageView *_imageView;
     
     UICollectionView *_collectionView;
@@ -29,23 +29,20 @@ static float CardHeightScale = 0.8f;
 
 @implementation XLCardSwitch
 
--(instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
     }
     return self;
 }
 
--(void)buildUI
-{
+- (void)buildUI {
     [self addImageView];
     
     [self addCollectionView];
 }
 
--(void)addImageView
-{
+- (void)addImageView {
     _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
     [self addSubview:_imageView];
     
@@ -55,8 +52,7 @@ static float CardHeightScale = 0.8f;
     [_imageView addSubview:effectView];
 }
 
--(void)addCollectionView
-{
+- (void)addCollectionView {
     XLCardSwitchFlowLayout *flowLayout = [[XLCardSwitchFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake([self cellWidth],self.bounds.size.height * CardHeightScale)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -74,8 +70,7 @@ static float CardHeightScale = 0.8f;
 
 #pragma mark -
 #pragma mark Setter
--(void)setModels:(NSArray *)models
-{
+- (void)setModels:(NSArray *)models {
     _models = models;
     if (_models.count) {
         XLCardModel *model = _models.firstObject;
@@ -87,8 +82,7 @@ static float CardHeightScale = 0.8f;
 #pragma mark CollectionDelegate
 
 //配置cell居中
--(void)fixCellToCenter
-{
+- (void)fixCellToCenter {
     //最小滚动距离
     float dragMiniDistance = self.bounds.size.width/20.0f;
     if (_dragStartX -  _dragEndX >= dragMiniDistance) {
@@ -103,8 +97,7 @@ static float CardHeightScale = 0.8f;
     [self scrollToCenter];
 }
 
--(void)scrollToCenter
-{
+- (void)scrollToCenter {
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     
     XLCardModel *model = _models[_selectedIndex];
@@ -116,22 +109,19 @@ static float CardHeightScale = 0.8f;
 #pragma mark -
 #pragma mark CollectionDelegate
 //手指拖动开始
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _dragStartX = scrollView.contentOffset.x;
 }
 
 //手指拖动停止
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     _dragEndX = scrollView.contentOffset.x;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self fixCellToCenter];
     });
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _selectedIndex = indexPath.row;
     [self scrollToCenter];
 }
@@ -140,40 +130,33 @@ static float CardHeightScale = 0.8f;
 #pragma mark CollectionDataSource
 
 //卡片宽度
--(CGFloat)cellWidth
-{
+- (CGFloat)cellWidth {
     return self.bounds.size.width * CardWidthScale;
 }
 
 //卡片间隔
--(float)cellMargin
-{
+- (float)cellMargin {
     return (self.bounds.size.width - [self cellWidth])/4;
 }
 
 //设置左右缩进
--(CGFloat)collectionInset
-{
+- (CGFloat)collectionInset {
     return self.bounds.size.width/2.0f - [self cellWidth]/2.0f;
 }
 
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(0, [self collectionInset], 0, [self collectionInset]);
 }
 
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _models.count;
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* cellId = @"XLCard";
     XLCard* card = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
     card.model = _models[indexPath.row];

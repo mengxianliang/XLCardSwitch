@@ -11,8 +11,7 @@
 @implementation XLCardSwitchFlowLayout
 
 //设置放大动画
--(NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect
-{
+- (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect {
     NSArray *arr = [self getCopyOfAttributes:[super layoutAttributesForElementsInRect:rect]];
     //屏幕中线
     CGFloat centerX = self.collectionView.contentOffset.x + self.collectionView.bounds.size.width/2.0f;
@@ -29,14 +28,12 @@
     return arr;
 }
 
--(BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds {
     return true;
 }
 
 //防止报错 先复制attributes
-- (NSArray *)getCopyOfAttributes:(NSArray *)attributes
-{
+- (NSArray *)getCopyOfAttributes:(NSArray *)attributes {
     NSMutableArray *copyArr = [NSMutableArray new];
     for (UICollectionViewLayoutAttributes *attribute in attributes) {
         [copyArr addObject:[attribute copy]];

@@ -10,6 +10,6 @@
 
 @interface XLCard : UICollectionViewCell
 
-@property (strong,nonatomic) id model;
+@property (nonatomic, strong) id model;
 
 @end

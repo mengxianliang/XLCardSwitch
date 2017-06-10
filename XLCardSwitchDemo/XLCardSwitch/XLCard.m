@@ -9,8 +9,7 @@
 #import "XLCard.h"
 #import "XLCardModel.h"
 
-@interface XLCard ()
-{
+@interface XLCard () {
     UIImageView *_imageView;
     UILabel *_textLabel;
 }
@@ -18,16 +17,14 @@
 
 @implementation XLCard
 
--(instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
     }
     return self;
 }
 
--(void)buildUI
-{
+- (void)buildUI {
     self.layer.cornerRadius = 10.0f;
     self.layer.masksToBounds = true;
     self.backgroundColor = [UIColor whiteColor];
@@ -47,8 +44,7 @@
     [self addSubview:_textLabel];
 }
 
--(void)setModel:(id)model
-{
+- (void)setModel:(id)model {
     XLCardModel *cardModel = (XLCardModel*)model;
     _imageView.image = [UIImage imageNamed:cardModel.imageName];
     _textLabel.text = cardModel.title;

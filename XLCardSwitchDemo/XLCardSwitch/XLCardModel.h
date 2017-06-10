@@ -10,8 +10,8 @@
 
 @interface XLCardModel : NSObject
 
-@property (nonatomic ,copy) NSString *imageName;
+@property (nonatomic, copy) NSString *imageName;
 
-@property (nonatomic ,copy) NSString *title;
+@property (nonatomic, copy) NSString *title;
 
 @end
