@@ -12,7 +12,11 @@
 
 |正常滑动|调用方法切换|分页滑动|
 |:---:|:---:|:---:|
-|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/3.gif" width=300 height=538 />|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif" width=300 height=538 />|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif" width=300 height=538 />|
+|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/3.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif)|
+
+
+
+<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif" width=300 height=538 />
 
 
 ## 使用方法 
