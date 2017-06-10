@@ -92,6 +92,25 @@ static float CardHeightScale = 0.8f;
 
 #pragma mark -
 #pragma mark CollectionDelegate
+
+//在不使用分页滚动的情况下需要手动计算当前index
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (_pagingEnabled) {return;}
+    if (!_collectionView.visibleCells.count) {return;}
+    if (!scrollView.isDragging) {return;}
+    CGRect currentRect = _collectionView.bounds;
+    currentRect.origin.x = _collectionView.contentOffset.x;
+    for (XLCard *card in _collectionView.visibleCells) {
+        if (CGRectContainsRect(currentRect, card.frame)) {
+            NSInteger index = [_collectionView indexPathForCell:card].row;
+            if (index != _selectedIndex) {
+                _selectedIndex = index;
+                [self performDelegateMethod];
+            }
+        }
+    }
+}
+
 //手指拖动开始
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     _dragStartX = scrollView.contentOffset.x;
