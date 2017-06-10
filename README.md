@@ -4,14 +4,15 @@
 
 ## 功能
 
-- [x] 手指拖动实现卡片切换
-- [x] 调用方法实现卡片切换
+- [x] 手指拖动切换卡片
+- [x] 调用方法切换卡片
+- [x] 可设置是否分页滚动
 
 ## 效果 
 
-|手指拖动切换|调用方法切换|
-|:---:|:---:|
-|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif" width=300 height=538 />|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif" width=300 height=538 />|
+|正常滑动|调用方法切换|分页滑动|
+|:---:|:---:|:---:|
+|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/3.gif" width=300 height=538 />|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif" width=300 height=538 />|<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif" width=300 height=538 />|
 
 
 ## 使用方法 
@@ -19,12 +20,16 @@
 **创建方法:**
 
 ```objc
-- (void)addCardSwitch {
+    //设置卡片浏览器
     _cardSwitch = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
-    _cardSwitch.models = models;
-    _cardSwitch.delegate = self;
+    _cardSwitch.items = items;
+    //设置代理
+    _cardSwitch.delegate = self;
+    //设置是否打开分页滑动
+    _cardSwitch.pagingEnabled = true;
+    //设置初始位置，默认为0
+    _cardSwitch.selectedIndex = 3;
     [self.view addSubview:_cardSwitch];
-}
 ```
 
 **切换位置:**
