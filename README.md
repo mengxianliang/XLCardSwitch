@@ -1,6 +1,6 @@
 # XLCardSwitch
 
-利用余弦函数的曲线特性实现的图片居中放大浏览工具，内部是利用UICollectionview的滚动实现的，有兴趣的可以看一下我的博文，里面有具体的实现原理，还是挺好玩儿的。
+利用余弦函数的曲线特性实现的图片居中放大浏览工具，内部是利用UICollectionview的滚动实现的，有兴趣的可以看一下我的博文，里面有具体的实现原理，还是挺好玩儿的。本工具也只是想传递这个这个居中放大的算法，为了方便使用也做了些功能性的封装；
 
 ## 功能
 
@@ -35,7 +35,9 @@
 
 ```objc
 [_cardSwitch switchToIndex:3 animated:true];
+```
 或
+```objc
 _cardSwitch.selectedIndex = 3;
 ```
 
