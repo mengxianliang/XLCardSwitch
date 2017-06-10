@@ -14,11 +14,6 @@
 |:---:|:---:|:---:|
 |![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/3.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif)|
 
-
-
-<img src="https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif" width=300 height=538 />
-
-
 ## 使用方法 
 
 **创建方法:**
