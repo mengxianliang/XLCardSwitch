@@ -50,19 +50,19 @@
     //初始化数据源
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"DataPropertyList" ofType:@"plist"];
     NSArray *arr = [NSArray arrayWithContentsOfFile:filePath];
-    NSMutableArray *models = [NSMutableArray new];
+    NSMutableArray *items = [NSMutableArray new];
     for (NSDictionary *dic in arr) {
-        XLCardModel *model = [XLCardModel new];
-        [model setValuesForKeysWithDictionary:dic];
-        [models addObject:model];
+        XLCardItem *item = [[XLCardItem alloc] init];
+        [item setValuesForKeysWithDictionary:dic];
+        [items addObject:item];
     }
     
     //设置卡片浏览器
     _cardSwitch = [[XLCardSwitch alloc] initWithFrame:CGRectMake(0, 64, self.view.bounds.size.width, self.view.bounds.size.height - 64)];
-    _cardSwitch.models = models;
+    _cardSwitch.items = items;
     _cardSwitch.delegate = self;
     //分页切换
-    _cardSwitch.pagingEnabled = false;
+    _cardSwitch.pagingEnabled = true;
     //设置初始位置，默认为0
     _cardSwitch.selectedIndex = 3;
     [self.view addSubview:_cardSwitch];
@@ -75,8 +75,8 @@
     NSLog(@"选中了：%zd",index);
     
     //更新背景图
-    XLCardModel *model = _cardSwitch.models[index];
-    _imageView.image = [UIImage imageNamed:model.imageName];
+    XLCardItem *item = _cardSwitch.items[index];
+    _imageView.image = [UIImage imageNamed:item.imageName];
 }
 
 
@@ -89,7 +89,7 @@
 
 - (void)switchNext {
     NSInteger index = _cardSwitch.selectedIndex + 1;
-    index = index > _cardSwitch.models.count - 1 ? _cardSwitch.models.count - 1 : index;
+    index = index > _cardSwitch.items.count - 1 ? _cardSwitch.items.count - 1 : index;
     [_cardSwitch switchToIndex:index animated:true];
 }
 

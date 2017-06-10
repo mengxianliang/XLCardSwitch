@@ -7,7 +7,7 @@
 //
 
 #import "XLCard.h"
-#import "XLCardModel.h"
+#import "XLCardItem.h"
 
 @interface XLCard () {
     UIImageView *_imageView;
@@ -44,9 +44,9 @@
     [self addSubview:_textLabel];
 }
 
-- (void)setModel:(id)model {
-    XLCardModel *cardModel = (XLCardModel*)model;
-    _imageView.image = [UIImage imageNamed:cardModel.imageName];
-    _textLabel.text = cardModel.title;
+-(void)setItem:(XLCardItem *)item {
+    _imageView.image = [UIImage imageNamed:item.imageName];
+    _textLabel.text = item.title;
 }
+
 @end

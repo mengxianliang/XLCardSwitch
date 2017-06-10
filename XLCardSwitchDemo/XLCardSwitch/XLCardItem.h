@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XLCardModel : NSObject
+@interface XLCardItem : NSObject
 
 @property (nonatomic, copy) NSString *imageName;
 

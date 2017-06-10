@@ -7,9 +7,10 @@
 //  被切换的卡片
 
 #import <UIKit/UIKit.h>
+#import "XLCardItem.h"
 
 @interface XLCard : UICollectionViewCell
 
-@property (nonatomic, strong) id model;
+@property (nonatomic, strong) XLCardItem *item;
 
 @end

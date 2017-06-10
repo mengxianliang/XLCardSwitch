@@ -60,8 +60,9 @@ static float CardHeightScale = 0.8f;
 
 #pragma mark -
 #pragma mark Setter
-- (void)setModels:(NSArray *)models {
-    _models = models;
+
+-(void)setItems:(NSArray<XLCardItem *> *)items {
+    _items = items;
     [_collectionView reloadData];
 }
 
@@ -92,8 +93,7 @@ static float CardHeightScale = 0.8f;
 
 #pragma mark -
 #pragma mark CollectionDelegate
-
-//在不使用分页滚动的情况下需要手动计算当前index
+//在不使用分页滚动的情况下需要手动计算当前选中位置 -> _selectedIndex
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (_pagingEnabled) {return;}
     if (!_collectionView.visibleCells.count) {return;}
@@ -105,7 +105,6 @@ static float CardHeightScale = 0.8f;
             NSInteger index = [_collectionView indexPathForCell:card].row;
             if (index != _selectedIndex) {
                 _selectedIndex = index;
-                [self performDelegateMethod];
             }
         }
     }
@@ -153,7 +152,7 @@ static float CardHeightScale = 0.8f;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _models.count;
+    return _items.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -163,7 +162,7 @@ static float CardHeightScale = 0.8f;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString* cellId = @"XLCard";
     XLCard* card = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    card.model = _models[indexPath.row];
+    card.item = _items[indexPath.row];
     return  card;
 }
 

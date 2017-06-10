@@ -28,8 +28,8 @@
 		18760D4C1E1F4D2800007F02 /* XLCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D491E1F4D2800007F02 /* XLCard.m */; };
 		18AEF9581E32090E00D8FD57 /* XLCardSwitchFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */; };
 		18AEF95B1E32497000D8FD57 /* XLCardSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */; };
-		18AEF9611E324BC600D8FD57 /* XLCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9601E324BC600D8FD57 /* XLCardModel.m */; };
-		18AEF9641E324BEA00D8FD57 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9631E324BEA00D8FD57 /* DemoViewController.m */; };
+		18AEF9611E324BC600D8FD57 /* XLCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9601E324BC600D8FD57 /* XLCardItem.m */; };
+		5E36E4731EEBD9850016C8F8 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E36E4721EEBD9850016C8F8 /* DemoViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,10 +60,10 @@
 		18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitchFlowLayout.m; sourceTree = "<group>"; };
 		18AEF9591E32497000D8FD57 /* XLCardSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardSwitch.h; sourceTree = "<group>"; };
 		18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitch.m; sourceTree = "<group>"; };
-		18AEF95F1E324BC600D8FD57 /* XLCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardModel.h; sourceTree = "<group>"; };
-		18AEF9601E324BC600D8FD57 /* XLCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardModel.m; sourceTree = "<group>"; };
-		18AEF9621E324BEA00D8FD57 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
-		18AEF9631E324BEA00D8FD57 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		18AEF95F1E324BC600D8FD57 /* XLCardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardItem.h; sourceTree = "<group>"; };
+		18AEF9601E324BC600D8FD57 /* XLCardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardItem.m; sourceTree = "<group>"; };
+		5E36E4711EEBD9850016C8F8 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
+		5E36E4721EEBD9850016C8F8 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +81,6 @@
 			isa = PBXGroup;
 			children = (
 				18760D271E1F4CE100007F02 /* XLCardSwitch */,
-				18760D241E1F4CB200007F02 /* Class */,
 				18760D251E1F4CB200007F02 /* Resource */,
 				18760D0C1E1F4C9800007F02 /* XLCardSwitchDemo */,
 				18760D0B1E1F4C9800007F02 /* Products */,
@@ -99,6 +98,8 @@
 		18760D0C1E1F4C9800007F02 /* XLCardSwitchDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5E36E4711EEBD9850016C8F8 /* DemoViewController.h */,
+				5E36E4721EEBD9850016C8F8 /* DemoViewController.m */,
 				18760D101E1F4C9800007F02 /* AppDelegate.h */,
 				18760D111E1F4C9800007F02 /* AppDelegate.m */,
 				18760D191E1F4C9800007F02 /* Assets.xcassets */,
@@ -115,15 +116,6 @@
 				18760D0E1E1F4C9800007F02 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		18760D241E1F4CB200007F02 /* Class */ = {
-			isa = PBXGroup;
-			children = (
-				18AEF9621E324BEA00D8FD57 /* DemoViewController.h */,
-				18AEF9631E324BEA00D8FD57 /* DemoViewController.m */,
-			);
-			path = Class;
 			sourceTree = "<group>";
 		};
 		18760D251E1F4CB200007F02 /* Resource */ = {
@@ -144,8 +136,8 @@
 				18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */,
 				18760D481E1F4D2800007F02 /* XLCard.h */,
 				18760D491E1F4D2800007F02 /* XLCard.m */,
-				18AEF95F1E324BC600D8FD57 /* XLCardModel.h */,
-				18AEF9601E324BC600D8FD57 /* XLCardModel.m */,
+				18AEF95F1E324BC600D8FD57 /* XLCardItem.h */,
+				18AEF9601E324BC600D8FD57 /* XLCardItem.m */,
 			);
 			path = XLCardSwitch;
 			sourceTree = "<group>";
@@ -256,11 +248,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				18760D4C1E1F4D2800007F02 /* XLCard.m in Sources */,
-				18AEF9611E324BC600D8FD57 /* XLCardModel.m in Sources */,
+				18AEF9611E324BC600D8FD57 /* XLCardItem.m in Sources */,
 				18AEF9581E32090E00D8FD57 /* XLCardSwitchFlowLayout.m in Sources */,
+				5E36E4731EEBD9850016C8F8 /* DemoViewController.m in Sources */,
 				18760D121E1F4C9800007F02 /* AppDelegate.m in Sources */,
 				18760D0F1E1F4C9800007F02 /* main.m in Sources */,
-				18AEF9641E324BEA00D8FD57 /* DemoViewController.m in Sources */,
 				18AEF95B1E32497000D8FD57 /* XLCardSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

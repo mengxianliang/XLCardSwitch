@@ -6,8 +6,8 @@
 //  Copyright © 2017年 Apple. All rights reserved.
 //
 
-#import "XLCardModel.h"
+#import "XLCardItem.h"
 
-@implementation XLCardModel
+@implementation XLCardItem
 
 @end

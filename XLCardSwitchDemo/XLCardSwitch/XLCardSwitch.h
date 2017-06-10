@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XLCardModel.h"
+#import "XLCardItem.h"
 
 @protocol XLCardSwitchDelegate <NSObject>
 
@@ -28,7 +28,7 @@
 /**
  设置数据源
  */
-@property (nonatomic, strong) NSArray <XLCardModel *>*models;
+@property (nonatomic, strong) NSArray <XLCardItem *>*items;
 /**
  代理
  */
