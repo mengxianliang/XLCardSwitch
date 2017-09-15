@@ -62,7 +62,7 @@
     _cardSwitch.items = items;
     _cardSwitch.delegate = self;
     //分页切换
-    _cardSwitch.pagingEnabled = true;
+    _cardSwitch.pagingEnabled = false;
     //设置初始位置，默认为0
     _cardSwitch.selectedIndex = 3;
     [self.view addSubview:_cardSwitch];

@@ -10,10 +10,6 @@
 #import "XLCardSwitchFlowLayout.h"
 #import "XLCard.h"
 
-//居中卡片宽度与据屏幕宽度比例
-static float CardWidthScale = 0.7f;
-static float CardHeightScale = 0.8f;
-
 @interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout> {
     
     UICollectionView *_collectionView;
@@ -39,15 +35,9 @@ static float CardHeightScale = 0.8f;
 }
 
 - (void)addCollectionView {
-    
     //避免UINavigation对UIScrollView产生的便宜问题
     [self addSubview:[UIView new]];
-    
     XLCardSwitchFlowLayout *flowLayout = [[XLCardSwitchFlowLayout alloc] init];
-    [flowLayout setItemSize:CGSizeMake([self cellWidth],self.bounds.size.height * CardHeightScale)];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-    [flowLayout setMinimumLineSpacing:[self cellMargin]];
-    
     _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     _collectionView.showsHorizontalScrollIndicator = false;
     _collectionView.backgroundColor = [UIColor clearColor];
@@ -60,7 +50,6 @@ static float CardHeightScale = 0.8f;
 
 #pragma mark -
 #pragma mark Setter
-
 -(void)setItems:(NSArray<XLCardItem *> *)items {
     _items = items;
     [_collectionView reloadData];
@@ -84,6 +73,7 @@ static float CardHeightScale = 0.8f;
     [self scrollToCenter];
 }
 
+//滚动到中间
 - (void)scrollToCenter {
     
     [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
@@ -131,25 +121,6 @@ static float CardHeightScale = 0.8f;
 
 #pragma mark -
 #pragma mark CollectionDataSource
-
-//卡片宽度
-- (CGFloat)cellWidth {
-    return self.bounds.size.width * CardWidthScale;
-}
-
-//卡片间隔
-- (float)cellMargin {
-    return (self.bounds.size.width - [self cellWidth])/4;
-}
-
-//设置左右缩进
-- (CGFloat)collectionInset {
-    return self.bounds.size.width/2.0f - [self cellWidth]/2.0f;
-}
-
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    return UIEdgeInsetsMake(0, [self collectionInset], 0, [self collectionInset]);
-}
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return _items.count;
