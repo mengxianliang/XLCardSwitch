@@ -17,8 +17,8 @@ static float CardHeightScale = 0.8f;
 //初始化方法
 - (void)prepareLayout {
     [super prepareLayout];
-    self.sectionInset = UIEdgeInsetsMake(0, [self collectionInset], 0, [self collectionInset]);
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    self.sectionInset = UIEdgeInsetsMake(0, [self collectionInset], 0, [self collectionInset]);
 }
 
 //设置缩放动画

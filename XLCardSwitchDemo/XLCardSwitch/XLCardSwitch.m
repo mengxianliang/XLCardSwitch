@@ -10,8 +10,7 @@
 #import "XLCardSwitchFlowLayout.h"
 #import "XLCard.h"
 
-@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout> {
-    
+@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource> {
     UICollectionView *_collectionView;
     
     CGFloat _dragStartX;
@@ -57,7 +56,6 @@
 
 #pragma mark -
 #pragma mark CollectionDelegate
-
 //配置cell居中
 - (void)fixCellToCenter {
     //最小滚动距离
@@ -114,6 +112,7 @@
     });
 }
 
+//点击方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _selectedIndex = indexPath.row;
     [self scrollToCenter];
