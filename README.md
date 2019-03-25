@@ -10,7 +10,7 @@
 
 ## 效果 
 
-|正常滑动|分页滑动|调用方法切换|
+|正常滚动|自动居中|调用方法切换|
 |:---:|:---:|:---:|
 |![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/3.gif)|
 
