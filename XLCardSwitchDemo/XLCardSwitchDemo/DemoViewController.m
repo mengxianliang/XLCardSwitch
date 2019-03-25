@@ -31,6 +31,11 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(switchNext)];
     
+    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"正常滑动",@"自动居中"]];
+    seg.selectedSegmentIndex = 0;
+    [seg addTarget:self action:@selector(segMethod:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = seg;
+    
     [self addImageView];
     
     [self addCardSwitch];
@@ -66,6 +71,19 @@
     //设置初始位置，默认为0
     _cardSwitch.selectedIndex = 3;
     [self.view addSubview:_cardSwitch];
+}
+
+- (void)segMethod:(UISegmentedControl *)seg {
+    switch (seg.selectedSegmentIndex) {
+        case 0:
+            _cardSwitch.pagingEnabled = false;
+            break;
+        case 1:
+            _cardSwitch.pagingEnabled = true;
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark -

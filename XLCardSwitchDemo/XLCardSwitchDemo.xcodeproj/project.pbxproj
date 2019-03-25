@@ -368,6 +368,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: xianliang meng (79SX5888C3)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = X496RVQDTB;
 				INFOPLIST_FILE = XLCardSwitchDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -375,6 +376,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mxl.XLCardSwitchDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "63d0bee2-4f74-4b71-a719-620d70b5a076";
+				PROVISIONING_PROFILE_SPECIFIER = mxlDev;
 			};
 			name = Debug;
 		};
@@ -383,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer: xianliang meng (79SX5888C3)";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = X496RVQDTB;
 				INFOPLIST_FILE = XLCardSwitchDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -390,6 +393,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = mxl.XLCardSwitchDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "63d0bee2-4f74-4b71-a719-620d70b5a076";
+				PROVISIONING_PROFILE_SPECIFIER = mxlDev;
 			};
 			name = Release;
 		};
