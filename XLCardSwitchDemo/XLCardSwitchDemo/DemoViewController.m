@@ -31,7 +31,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStylePlain target:self action:@selector(switchNext)];
     
-    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"正常滑动",@"自动居中"]];
+    UISegmentedControl *seg = [[UISegmentedControl alloc] initWithItems:@[@"正常滚动",@"自动居中"]];
     seg.selectedSegmentIndex = 0;
     [seg addTarget:self action:@selector(segMethod:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = seg;
