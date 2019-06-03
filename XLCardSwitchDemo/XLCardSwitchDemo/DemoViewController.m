@@ -37,6 +37,12 @@
     [self buildData];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.imageView.frame = self.view.bounds;
+    self.cardSwitch.frame = self.view.bounds;
+}
+
 - (void)configNavigationBar {
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Previous" style:UIBarButtonItemStylePlain target:self action:@selector(switchPrevious)];
@@ -50,13 +56,13 @@
 }
 
 - (void)addImageView {
-    self.imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+    self.imageView = [[UIImageView alloc] init];
     [self.view addSubview:self.imageView];
     
     //毛玻璃效果
     UIBlurEffect* effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView* effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    effectView.frame = _imageView.bounds;
+    effectView.frame = self.view.bounds;
     [self.imageView addSubview:effectView];
 }
 
@@ -85,8 +91,7 @@
     self.cardSwitch.models = self.models;
     
     //更新背景图
-    XLCardModel *model = self.models[self.cardSwitch.selectedIndex];
-    self.imageView.image = [UIImage imageNamed:model.imageName];
+    [self configImageViewOfIndex:self.cardSwitch.selectedIndex];
 }
 
 //开关分页效果
@@ -105,10 +110,21 @@
 
 #pragma mark -
 #pragma mark CardSwitchDelegate
-- (void)XLCardSwitchDidSelectedAt:(NSInteger)index {
-    NSLog(@"选中了：%zd",index);
+- (void)cardSwitchDidClickAtIndex:(NSInteger)index {
+    NSLog(@"点击了：%zd",index);
+    [self configImageViewOfIndex:index];
+}
+
+- (void)cardSwitchDidScrollToIndex:(NSInteger)index {
+    NSLog(@"滚动到了击了：%zd",index);
+    [self configImageViewOfIndex:index];
+}
+
+#pragma mark -
+#pragma mark 更新imageView
+- (void)configImageViewOfIndex:(NSInteger)index {
     //更新背景图
-    XLCardModel *model = self.cardSwitch.models[index];
+    XLCardModel *model = self.models[index];
     self.imageView.image = [UIImage imageNamed:model.imageName];
 }
 
@@ -122,7 +138,7 @@
 
 - (void)switchNext {
     NSInteger index = self.cardSwitch.selectedIndex + 1;
-    index = index > self.cardSwitch.models.count - 1 ? self.cardSwitch.models.count - 1 : index;
+    index = index > self.models.count - 1 ? self.models.count - 1 : index;
     [self.cardSwitch switchToIndex:index animated:true];
 }
 

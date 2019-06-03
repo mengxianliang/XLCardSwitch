@@ -18,7 +18,7 @@ static float CardHeightScale = 0.8f;
 - (void)prepareLayout {
     [super prepareLayout];
     self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    self.sectionInset = UIEdgeInsetsMake(0, [self insetX], 0, [self insetX]);
+    self.sectionInset = UIEdgeInsetsMake([self insetY], [self insetX], [self insetY], [self insetX]);
     self.itemSize = CGSizeMake([self itemWidth], [self itemHeight]);
     self.minimumLineSpacing = 5;
 }
@@ -66,6 +66,11 @@ static float CardHeightScale = 0.8f;
 - (CGFloat)insetX {
     CGFloat insetX = (self.collectionView.bounds.size.width - [self itemWidth])/2.0f;
     return insetX;
+}
+
+- (CGFloat)insetY {
+    CGFloat insetY = (self.collectionView.bounds.size.height - [self itemHeight])/2.0f;
+    return insetY;
 }
 
 //是否实时刷新布局

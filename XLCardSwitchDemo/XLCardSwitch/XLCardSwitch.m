@@ -24,6 +24,13 @@
 
 @implementation XLCardSwitch
 
+- (instancetype)init {
+    if (self = [super init]) {
+        [self buildUI];
+    }
+    return self;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self buildUI];
@@ -32,7 +39,6 @@
 }
 
 - (void)buildUI {
-    
     [self addCollectionView];
 }
 
@@ -54,6 +60,11 @@
     [self addSubview:self.collectionView];
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.collectionView.frame = self.bounds;
+}
+
 - (void)updateSelectedIndex:(NSIndexPath *)indexPath {
     if (indexPath.row != _selectedIndex) {
         _selectedIndex = indexPath.row;
@@ -73,7 +84,7 @@
 //配置cell居中
 - (void)fixCellToCenter {
     if (_selectedIndex != [self dragAtIndex]) {
-        [self scrollToCenter];
+        [self scrollToCenterAnimated:true];
         return;
     }
     //最小滚动距离
@@ -86,11 +97,11 @@
     NSInteger maxIndex = [self.collectionView numberOfItemsInSection:0] - 1;
     _selectedIndex = _selectedIndex <= 0 ? 0 : _selectedIndex;
     _selectedIndex = _selectedIndex >= maxIndex ? maxIndex : _selectedIndex;
-    [self scrollToCenter];
+    [self scrollToCenterAnimated:true];
 }
 
 //滚动到中间
-- (void)scrollToCenter {
+- (void)scrollToCenterAnimated:(BOOL)animated {
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
 
@@ -113,7 +124,7 @@
 //点击方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _selectedIndex = indexPath.row;
-    [self scrollToCenter];
+    [self scrollToCenterAnimated:YES];
     [self performClickDelegateMethod];
 }
 
@@ -143,7 +154,8 @@
 }
 
 - (void)switchToIndex:(NSInteger)index animated:(BOOL)animated {
-    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
+    _selectedIndex = index;
+    [self scrollToCenterAnimated:animated];
 }
 
 - (void)performClickDelegateMethod {
