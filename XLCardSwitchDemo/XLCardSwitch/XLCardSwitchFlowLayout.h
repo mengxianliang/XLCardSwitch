@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^XLCenterIndexPathBlock)(NSIndexPath *indexPath);
+
 @interface XLCardSwitchFlowLayout : UICollectionViewFlowLayout
+
+@property (nonatomic , strong) XLCenterIndexPathBlock centerBlock;
 
 @end

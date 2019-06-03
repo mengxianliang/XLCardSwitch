@@ -8,15 +8,18 @@
 
 #import "XLCardSwitch.h"
 #import "XLCardSwitchFlowLayout.h"
-#import "XLCard.h"
+#import "XLCardCell.h"
 
-@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource> {
-    UICollectionView *_collectionView;
-    
-    CGFloat _dragStartX;
-    
-    CGFloat _dragEndX;
-}
+@interface XLCardSwitch ()<UICollectionViewDelegate,UICollectionViewDataSource>
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+@property (nonatomic, assign) CGFloat dragStartX;
+
+@property (nonatomic, assign) CGFloat dragEndX;
+
+@property (nonatomic, assign) CGFloat dragAtIndex;
+
 @end
 
 @implementation XLCardSwitch
@@ -34,38 +37,53 @@
 }
 
 - (void)addCollectionView {
-    //避免UINavigation对UIScrollView产生的便宜问题
+    //避免UINavigation对UIScrollView产生的偏移问题
     [self addSubview:[UIView new]];
     XLCardSwitchFlowLayout *flowLayout = [[XLCardSwitchFlowLayout alloc] init];
-    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
-    _collectionView.showsHorizontalScrollIndicator = false;
-    _collectionView.backgroundColor = [UIColor clearColor];
-    [_collectionView registerClass:[XLCard class] forCellWithReuseIdentifier:@"XLCard"];
-    _collectionView.userInteractionEnabled = true;
-    _collectionView.delegate = self;
-    _collectionView.dataSource = self;
-    [self addSubview:_collectionView];
+    __weak typeof(self)weakSelf = self;
+    flowLayout.centerBlock = ^(NSIndexPath *indexPath) {
+        [weakSelf updateSelectedIndex:indexPath];
+    };
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    self.collectionView.showsHorizontalScrollIndicator = false;
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    [self.collectionView registerClass:[XLCardCell class] forCellWithReuseIdentifier:@"XLCardCell"];
+    self.collectionView.userInteractionEnabled = true;
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    [self addSubview:self.collectionView];
+}
+
+- (void)updateSelectedIndex:(NSIndexPath *)indexPath {
+    if (indexPath.row != _selectedIndex) {
+        _selectedIndex = indexPath.row;
+        [self performScrollDelegateMethod];
+    }
 }
 
 #pragma mark -
 #pragma mark Setter
--(void)setItems:(NSArray<XLCardItem *> *)items {
-    _items = items;
-    [_collectionView reloadData];
+- (void)setModels:(NSArray<XLCardModel *> *)models {
+    _models = models;
+    [self.collectionView reloadData];
 }
 
 #pragma mark -
 #pragma mark CollectionDelegate
 //配置cell居中
 - (void)fixCellToCenter {
+    if (_selectedIndex != [self dragAtIndex]) {
+        [self scrollToCenter];
+        return;
+    }
     //最小滚动距离
     float dragMiniDistance = self.bounds.size.width/20.0f;
-    if (_dragStartX -  _dragEndX >= dragMiniDistance) {
+    if (self.dragStartX -  self.dragEndX >= dragMiniDistance) {
         _selectedIndex -= 1;//向右
-    }else if(_dragEndX -  _dragStartX >= dragMiniDistance){
+    }else if(self.dragEndX -  self.dragStartX >= dragMiniDistance){
         _selectedIndex += 1;//向左
     }
-    NSInteger maxIndex = [_collectionView numberOfItemsInSection:0] - 1;
+    NSInteger maxIndex = [self.collectionView numberOfItemsInSection:0] - 1;
     _selectedIndex = _selectedIndex <= 0 ? 0 : _selectedIndex;
     _selectedIndex = _selectedIndex >= maxIndex ? maxIndex : _selectedIndex;
     [self scrollToCenter];
@@ -73,40 +91,20 @@
 
 //滚动到中间
 - (void)scrollToCenter {
-    
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-    
-    [self performDelegateMethod];
-}
-
-#pragma mark -
-#pragma mark CollectionDelegate
-//在不使用分页滚动的情况下需要手动计算当前选中位置 -> _selectedIndex
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (_pagingEnabled) {return;}
-    if (!_collectionView.visibleCells.count) {return;}
-    if (!scrollView.isDragging) {return;}
-    CGRect currentRect = _collectionView.bounds;
-    currentRect.origin.x = _collectionView.contentOffset.x;
-    for (XLCard *card in _collectionView.visibleCells) {
-        if (CGRectContainsRect(currentRect, card.frame)) {
-            NSInteger index = [_collectionView indexPathForCell:card].row;
-            if (index != _selectedIndex) {
-                _selectedIndex = index;
-            }
-        }
-    }
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:_selectedIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
 }
 
 //手指拖动开始
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    _dragStartX = scrollView.contentOffset.x;
+    if (!_pagingEnabled) {return;}
+    self.dragStartX = scrollView.contentOffset.x;
+    self.dragAtIndex = _selectedIndex;
 }
 
 //手指拖动停止
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (!_pagingEnabled) {return;}
-    _dragEndX = scrollView.contentOffset.x;
+    self.dragEndX = scrollView.contentOffset.x;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self fixCellToCenter];
     });
@@ -116,13 +114,14 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     _selectedIndex = indexPath.row;
     [self scrollToCenter];
+    [self performClickDelegateMethod];
 }
 
 #pragma mark -
 #pragma mark CollectionDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _items.count;
+    return self.models.count;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -130,28 +129,32 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString* cellId = @"XLCard";
-    XLCard* card = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
-    card.item = _items[indexPath.row];
+    static NSString* cellId = @"XLCardCell";
+    XLCardCell* card = [collectionView dequeueReusableCellWithReuseIdentifier:cellId forIndexPath:indexPath];
+    card.model = self.models[indexPath.row];
     return  card;
 }
 
 #pragma mark -
 #pragma mark 功能方法
-
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
+    _selectedIndex = selectedIndex;
     [self switchToIndex:selectedIndex animated:false];
 }
 
 - (void)switchToIndex:(NSInteger)index animated:(BOOL)animated {
-    _selectedIndex = index;
-    [_collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
-    [self performDelegateMethod];
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:animated];
 }
 
-- (void)performDelegateMethod {
-    if ([_delegate respondsToSelector:@selector(XLCardSwitchDidSelectedAt:)]) {
-        [_delegate XLCardSwitchDidSelectedAt:_selectedIndex];
+- (void)performClickDelegateMethod {
+    if ([_delegate respondsToSelector:@selector(cardSwitchDidClickAtIndex:)]) {
+        [_delegate cardSwitchDidClickAtIndex:_selectedIndex];
+    }
+}
+
+- (void)performScrollDelegateMethod {
+    if ([_delegate respondsToSelector:@selector(cardSwitchDidScrollToIndex:)]) {
+        [_delegate cardSwitchDidScrollToIndex:_selectedIndex];
     }
 }
 

@@ -17,9 +17,10 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [self.window makeKeyAndVisible];
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[DemoViewController new]];
+    DemoViewController *vc = [[DemoViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.navigationBar.translucent = false;
+    self.window.rootViewController = nav;
     return YES;
 }
 

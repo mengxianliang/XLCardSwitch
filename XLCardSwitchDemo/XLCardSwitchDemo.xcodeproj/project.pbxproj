@@ -25,10 +25,10 @@
 		18760D411E1F4CF700007F02 /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = 18760D341E1F4CF700007F02 /* 8.png */; };
 		18760D421E1F4CF700007F02 /* 9.png in Resources */ = {isa = PBXBuildFile; fileRef = 18760D351E1F4CF700007F02 /* 9.png */; };
 		18760D471E1F4D1300007F02 /* DataPropertyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18760D461E1F4D1300007F02 /* DataPropertyList.plist */; };
-		18760D4C1E1F4D2800007F02 /* XLCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D491E1F4D2800007F02 /* XLCard.m */; };
+		18760D4C1E1F4D2800007F02 /* XLCardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18760D491E1F4D2800007F02 /* XLCardCell.m */; };
 		18AEF9581E32090E00D8FD57 /* XLCardSwitchFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */; };
 		18AEF95B1E32497000D8FD57 /* XLCardSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */; };
-		18AEF9611E324BC600D8FD57 /* XLCardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9601E324BC600D8FD57 /* XLCardItem.m */; };
+		18AEF9611E324BC600D8FD57 /* XLCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 18AEF9601E324BC600D8FD57 /* XLCardModel.m */; };
 		5E36E4731EEBD9850016C8F8 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E36E4721EEBD9850016C8F8 /* DemoViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -54,14 +54,14 @@
 		18760D341E1F4CF700007F02 /* 8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 8.png; sourceTree = "<group>"; };
 		18760D351E1F4CF700007F02 /* 9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9.png; sourceTree = "<group>"; };
 		18760D461E1F4D1300007F02 /* DataPropertyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataPropertyList.plist; sourceTree = "<group>"; };
-		18760D481E1F4D2800007F02 /* XLCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCard.h; sourceTree = "<group>"; };
-		18760D491E1F4D2800007F02 /* XLCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCard.m; sourceTree = "<group>"; };
+		18760D481E1F4D2800007F02 /* XLCardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardCell.h; sourceTree = "<group>"; };
+		18760D491E1F4D2800007F02 /* XLCardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardCell.m; sourceTree = "<group>"; };
 		18AEF9561E32090E00D8FD57 /* XLCardSwitchFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardSwitchFlowLayout.h; sourceTree = "<group>"; };
 		18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitchFlowLayout.m; sourceTree = "<group>"; };
 		18AEF9591E32497000D8FD57 /* XLCardSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardSwitch.h; sourceTree = "<group>"; };
 		18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardSwitch.m; sourceTree = "<group>"; };
-		18AEF95F1E324BC600D8FD57 /* XLCardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardItem.h; sourceTree = "<group>"; };
-		18AEF9601E324BC600D8FD57 /* XLCardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardItem.m; sourceTree = "<group>"; };
+		18AEF95F1E324BC600D8FD57 /* XLCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLCardModel.h; sourceTree = "<group>"; };
+		18AEF9601E324BC600D8FD57 /* XLCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLCardModel.m; sourceTree = "<group>"; };
 		5E36E4711EEBD9850016C8F8 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		5E36E4721EEBD9850016C8F8 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,10 +134,10 @@
 				18AEF95A1E32497000D8FD57 /* XLCardSwitch.m */,
 				18AEF9561E32090E00D8FD57 /* XLCardSwitchFlowLayout.h */,
 				18AEF9571E32090E00D8FD57 /* XLCardSwitchFlowLayout.m */,
-				18760D481E1F4D2800007F02 /* XLCard.h */,
-				18760D491E1F4D2800007F02 /* XLCard.m */,
-				18AEF95F1E324BC600D8FD57 /* XLCardItem.h */,
-				18AEF9601E324BC600D8FD57 /* XLCardItem.m */,
+				18760D481E1F4D2800007F02 /* XLCardCell.h */,
+				18760D491E1F4D2800007F02 /* XLCardCell.m */,
+				18AEF95F1E324BC600D8FD57 /* XLCardModel.h */,
+				18AEF9601E324BC600D8FD57 /* XLCardModel.m */,
 			);
 			path = XLCardSwitch;
 			sourceTree = "<group>";
@@ -188,7 +188,7 @@
 		18760D021E1F4C9800007F02 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Apple;
 				TargetAttributes = {
 					18760D091E1F4C9800007F02 = {
@@ -200,7 +200,7 @@
 			};
 			buildConfigurationList = 18760D051E1F4C9800007F02 /* Build configuration list for PBXProject "XLCardSwitchDemo" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -247,8 +247,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18760D4C1E1F4D2800007F02 /* XLCard.m in Sources */,
-				18AEF9611E324BC600D8FD57 /* XLCardItem.m in Sources */,
+				18760D4C1E1F4D2800007F02 /* XLCardCell.m in Sources */,
+				18AEF9611E324BC600D8FD57 /* XLCardModel.m in Sources */,
 				18AEF9581E32090E00D8FD57 /* XLCardSwitchFlowLayout.m in Sources */,
 				5E36E4731EEBD9850016C8F8 /* DemoViewController.m in Sources */,
 				18760D121E1F4C9800007F02 /* AppDelegate.m in Sources */,
@@ -275,20 +275,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -324,20 +333,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

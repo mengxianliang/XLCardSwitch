@@ -7,16 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XLCardItem.h"
+#import "XLCardModel.h"
 
 @protocol XLCardSwitchDelegate <NSObject>
 
 @optional
 
 /**
- 滚动代理方法
+ 点击卡片代理方法
  */
--(void)XLCardSwitchDidSelectedAt:(NSInteger)index;
+-(void)cardSwitchDidClickAtIndex:(NSInteger)index;
+
+/**
+ 滚动卡片代理方法
+ */
+-(void)cardSwitchDidScrollToIndex:(NSInteger)index;
 
 @end
 
@@ -28,7 +33,7 @@
 /**
  设置数据源
  */
-@property (nonatomic, strong) NSArray <XLCardItem *>*items;
+@property (nonatomic, strong) NSArray <XLCardModel *>*models;
 /**
  代理
  */
