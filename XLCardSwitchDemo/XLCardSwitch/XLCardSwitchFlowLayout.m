@@ -39,7 +39,7 @@ static float CardHeightScale = 0.8f;
         CGFloat progress = apart/maxApart;
         //在屏幕外的cell不处理
         if (fabs(progress) > 1) {continue;}
-        //根据余弦函数，弧度在 -π/4 到 π/4,即 scale在√2/2到1间变化
+        //根据余弦函数，弧度在 -π/4 到 π/4,即 scale在 √2/2~1~√2/2 间变化
         CGFloat scale = fabs(cos(progress * M_PI/4));
         //缩放大小
         attributes.transform = CGAffineTransformMakeScale(scale, scale);
