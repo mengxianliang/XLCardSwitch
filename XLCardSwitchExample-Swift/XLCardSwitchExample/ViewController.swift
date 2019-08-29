@@ -64,27 +64,27 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
         self.cardSwitch?.dataSource = self
         self.cardSwitch?.delegate = self
         //注册cell
-        self.cardSwitch?.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier: "CustomCollectionViewCell")
+        self.cardSwitch?.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
         //添加到父视图
         self.view.addSubview(self.cardSwitch!)
     }
     
     //DataSource方法，返回总共卡片个数
     func cardSwitchNumberOfCard() -> (Int) {
-        return 10
+        return self.cellInfoArr().count
     }
     
     //DataSource方法，返回UICollectionViewCell
     func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
-        let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCollectionViewCell", for: index) as! CustomCollectionViewCell
-        cell.imageView?.image = UIImage.init(named: self.imageNames()[index])
-        cell.textLabel?.text = self.playerNames()[index]
+        let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
+        cell.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
+        cell.textLabel?.text = self.cellInfoArr()[index].1
         return cell
     }
     
     //代理方法
     func cardSwitchDidScrollToIndex(index: Int) {
-        self.imageView?.image = UIImage.init(named: self.imageNames()[index])
+        self.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
     }
     
     func cardSwitchDidSelectedAtIndex(index: Int) {
@@ -106,13 +106,9 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     }
     
     //MARK:-
-    //MARK:数据源
-    func imageNames() -> Array<String> {
-        return ["1","2","3","4","5","6","7","8","9","10","11","12","13"]
-    }
-    
-    func playerNames() -> Array<String> {
-        return ["艾德·史塔克","凯瑟琳·徒利·史塔克","罗柏·史塔克","琼恩·雪诺","艾莉亚·史塔克","珊莎·史塔克","布兰·史塔克","瑟曦·兰尼斯特·拜拉席恩","提利昂·兰尼斯特","泰温·兰尼斯特","詹姆·兰尼斯特","乔佛里·拜拉席恩","丹尼莉丝·坦格利安"]
+    //MARK:测试数据 (图片名称，名字)
+    func cellInfoArr() -> Array<(String, String)> {
+        return [("1","艾德·史塔克"),("2","凯瑟琳·徒利·史塔克"),("3","罗柏·史塔克"),("4","琼恩·雪诺"),("5","艾莉亚·史塔克"),("6","珊莎·史塔克"),("7","布兰·史塔克"),("8","瑟曦·兰尼斯特·拜拉席恩"),("9","提利昂·兰尼斯特"),("10","泰温·兰尼斯特"),("11","詹姆·兰尼斯特"),("12","乔佛里·拜拉席恩"),("13","丹尼莉丝·坦格利安")]
     }
 }
 

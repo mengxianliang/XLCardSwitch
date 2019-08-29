@@ -32,6 +32,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
         
         self.imageView = UIImageView.init(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: imageH))
         self.imageView?.contentMode = UIView.ContentMode.scaleAspectFill
+        self.imageView?.layer.masksToBounds = true
         self.addSubview(self.imageView!)
         
         self.textLabel = UILabel.init(frame: CGRect(x: 0, y: imageH, width: self.bounds.size.width, height: labelH))
