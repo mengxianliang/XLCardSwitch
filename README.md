@@ -76,22 +76,21 @@ self.view.addSubview(self.cardSwitch!)
 *注：使用时必须接入DataSource方法，且需要自定义一个UICollectionviewcell，使用方法和UICollectionview一样，先注册，再使用；XLCardSwitch只负责缩放效果，不关心其他数据和UI*
 
 ```swift
-   //DataSource方法，返回总共卡片个数
-    func cardSwitchNumberOfCard() -> (Int) {
-        return self.cellInfoArr().count
-    }
+//DataSource方法，返回总共卡片个数
+func cardSwitchNumberOfCard() -> (Int) {
+    return self.cellInfoArr().count
+}
     
-    //DataSource方法，返回UICollectionViewCell
-    func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
-        let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
-        cell.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
-        cell.textLabel?.text = self.cellInfoArr()[index].1
-        return cell
+//DataSource方法，返回UICollectionViewCell
+func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
+    let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
+    cell.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
+    cell.textLabel?.text = self.cellInfoArr()[index].1
+    return cell
     }
 ```
 
 #### 3、Delegate
-
 
 ```swift
 //滑动切换到新的位置回调
