@@ -12,7 +12,7 @@
 
 |正常滚动|自动居中|调用方法切换|
 |:---:|:---:|:---:|
-|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/1.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/2.gif)|![image](https://github.com/mengxianliang/XLCardSwitch/blob/master/GIF/3.gif)|
+|![image](https://github.com/mengxianliang/ImageRepository/blob/master/XLCardSwitch/GIF/1.gif)|![image](https://github.com/mengxianliang/ImageRepository/blob/master/XLCardSwitch/GIF/2.gif)|![image](https://github.com/mengxianliang/ImageRepository/blob/master/XLCardSwitch/GIF/3.gif)|
 
 ## 使用方法 
 
