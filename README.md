@@ -16,6 +16,8 @@
 
 ## 使用方法 
 
+### OC版本
+
 **创建方法:**
 
 ```objc
@@ -47,6 +49,55 @@ _cardSwitch.selectedIndex = 3;
 - (void)XLCardSwitchDidSelectedAt:(NSInteger)index {
     NSLog(@"选中了：%zd",index);
 }
+```
+
+### Swift版本
+
+
+#### 1、创建
+
+```swift
+self.cardSwitch = XLCardSwitch.init()
+self.cardSwitch?.frame = self.view.bounds
+//设置数据源和代理
+self.cardSwitch?.frame = self.view.bounds
+self.cardSwitch?.frame = self.view.bounds
+self.cardSwitch?.frame = self.view.bounds
+self.cardSwitch?.dataSource = self
+self.cardSwitch?.delegate = self
+//注册cell
+self.cardSwitch?.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
+//添加到父视图
+self.view.addSubview(self.cardSwitch!)
+```
+
+#### 2、DataSource
+
+*注：使用时必须接入DataSource方法，且需要自定义一个UICollectionviewcell，使用方法和UICollectionview一样，先注册，再使用；XLCardSwitch只负责缩放效果，不关心其他数据和UI*
+
+```swift
+   //DataSource方法，返回总共卡片个数
+    func cardSwitchNumberOfCard() -> (Int) {
+        return self.cellInfoArr().count
+    }
+    
+    //DataSource方法，返回UICollectionViewCell
+    func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
+        let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
+        cell.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
+        cell.textLabel?.text = self.cellInfoArr()[index].1
+        return cell
+    }
+```
+
+#### 3、Delegate
+
+
+```swift
+//滑动切换到新的位置回调
+@objc optional func cardSwitchDidScrollToIndex(index: Int) -> ()
+//手动点击了
+@objc optional func cardSwitchDidSelectedAtIndex(index: Int) -> ()
 ```
 
 ### 实现原理请参考[我的博文](http://blog.csdn.net/u013282507/article/details/54136812) 
