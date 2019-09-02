@@ -57,18 +57,13 @@ _cardSwitch.selectedIndex = 3;
 #### 1、创建
 
 ```swift
-self.cardSwitch = XLCardSwitch.init()
-self.cardSwitch?.frame = self.view.bounds
-//设置数据源和代理
-self.cardSwitch?.frame = self.view.bounds
-self.cardSwitch?.frame = self.view.bounds
-self.cardSwitch?.frame = self.view.bounds
-self.cardSwitch?.dataSource = self
-self.cardSwitch?.delegate = self
+self.cardSwitch.frame = self.view.bounds
+self.cardSwitch.dataSource = self
+self.cardSwitch.delegate = self
 //注册cell
-self.cardSwitch?.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
+self.cardSwitch.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
 //添加到父视图
-self.view.addSubview(self.cardSwitch!)
+self.view.addSubview(self.cardSwitch)
 ```
 
 #### 2、DataSource
@@ -82,10 +77,10 @@ func cardSwitchNumberOfCard() -> (Int) {
 }
     
 //DataSource方法，返回UICollectionViewCell
-func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
-    let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
-    cell.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
-    cell.textLabel?.text = self.cellInfoArr()[index].1
+    func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
+    let cell = self.cardSwitch.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
+    cell.imageView.image = UIImage.init(named: self.cellInfoArr()[index].0)
+    cell.textLabel.text = self.cellInfoArr()[index].1
     return cell
     }
 ```
