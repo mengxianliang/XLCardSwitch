@@ -31,7 +31,7 @@ class XLCardSwitchFlowLayout: UICollectionViewFlowLayout {
         //获取cell的布局
         let originalAttributesArr = super.layoutAttributesForElements(in: rect)
         //复制布局,以下操作，在复制布局中处理
-        var attributesArr: Array<UICollectionViewLayoutAttributes> = []
+        var attributesArr: Array<UICollectionViewLayoutAttributes> = Array.init()
         for attr: UICollectionViewLayoutAttributes in originalAttributesArr! {
             attributesArr.append(attr.copy() as! UICollectionViewLayoutAttributes)
         }
@@ -271,5 +271,4 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     open func dequeueReusableCell(withReuseIdentifier identifier: String, for index: Int) -> UICollectionViewCell {
         return _collectionView! .dequeueReusableCell(withReuseIdentifier: identifier, for: IndexPath(row: index, section: 0))
     }
-
 }

@@ -9,9 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelegate {
-    var cardSwitch: XLCardSwitch?
-    var imageView: UIImageView?
-    var blurEffectView: UIVisualEffectView?
+    var cardSwitch:XLCardSwitch = XLCardSwitch.init()
+    var imageView: UIImageView = UIImageView.init()
+    var blurEffectView: UIVisualEffectView = UIVisualEffectView.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +28,9 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     //自动布局
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.imageView?.frame = self.view.bounds
-        self.blurEffectView?.frame = self.view.bounds
-        self.cardSwitch?.frame = self.view.bounds
+        self.imageView.frame = self.view.bounds
+        self.blurEffectView.frame = self.view.bounds
+        self.cardSwitch.frame = self.view.bounds
     }
     
     func buildOtherUI() -> () {
@@ -48,25 +48,22 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
         self.navigationItem.titleView = seg
         
         //背景图片
-        self.imageView = UIImageView.init(frame: self.view.bounds)
-        self.view.addSubview(self.imageView!)
-        
-        
+        self.view.addSubview(self.imageView)
+
         let blurEffect = UIBlurEffect.init(style: UIBlurEffect.Style.light)
-        self.blurEffectView = UIVisualEffectView.init(effect: blurEffect)
-        self.blurEffectView?.frame = self.imageView!.bounds
-        self.imageView?.addSubview(blurEffectView!)
+        self.blurEffectView.effect = blurEffect;
+        self.blurEffectView.frame = self.imageView.bounds
+        self.imageView.addSubview(blurEffectView)
     }
     
     func buildCardSwitch() -> () {
-        self.cardSwitch = XLCardSwitch.init()
-        self.cardSwitch?.frame = self.view.bounds
-        self.cardSwitch?.dataSource = self
-        self.cardSwitch?.delegate = self
+        self.cardSwitch.frame = self.view.bounds
+        self.cardSwitch.dataSource = self
+        self.cardSwitch.delegate = self
         //注册cell
-        self.cardSwitch?.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
+        self.cardSwitch.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
         //添加到父视图
-        self.view.addSubview(self.cardSwitch!)
+        self.view.addSubview(self.cardSwitch)
     }
     
     //DataSource方法，返回总共卡片个数
@@ -76,7 +73,7 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     
     //DataSource方法，返回UICollectionViewCell
     func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
-        let cell = self.cardSwitch!.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
+        let cell = self.cardSwitch.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
         cell.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
         cell.textLabel?.text = self.cellInfoArr()[index].1
         return cell
@@ -84,7 +81,7 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     
     //代理方法
     func cardSwitchDidScrollToIndex(index: Int) {
-        self.imageView?.image = UIImage.init(named: self.cellInfoArr()[index].0)
+        self.imageView.image = UIImage.init(named: self.cellInfoArr()[index].0)
     }
     
     func cardSwitchDidSelectedAtIndex(index: Int) {
@@ -94,15 +91,15 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     //MARK-
     //MARK其他方法
     @objc func switchPrevious() -> () {
-        self.cardSwitch?.switchPrevious()
+        self.cardSwitch.switchPrevious()
     }
     
     @objc func switchNext() -> () {
-        self.cardSwitch?.switchNext()
+        self.cardSwitch.switchNext()
     }
     
     @objc func segMethod(seg: UISegmentedControl) -> () {
-        self.cardSwitch?.pagingEnabled = (seg.selectedSegmentIndex == 1)
+        self.cardSwitch.pagingEnabled = (seg.selectedSegmentIndex == 1)
     }
     
     //MARK:-
