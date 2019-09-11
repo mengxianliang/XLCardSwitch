@@ -114,7 +114,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     weak var delegate: XLCardSwitchDelegate?
     weak var dataSource: XLCardSwitchDataSource?
     var selectedIndex: Int = 0
-    var pagingEnabled: Bool = true
+    var pagingEnabled: Bool = false
     //私有属性
     private var _dragStartX: CGFloat = 0
     private var _dragEndX: CGFloat = 0
