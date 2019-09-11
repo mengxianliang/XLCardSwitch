@@ -65,7 +65,7 @@ lazy var cardSwitch: XLCardSwitch = {
     //注册cell
     temp.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
     return temp
-    }()
+}()
 ```
 
 #### 2、DataSource
@@ -79,12 +79,12 @@ func cardSwitchNumberOfCard() -> (Int) {
 }
     
 //DataSource方法，返回UICollectionViewCell
-    func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
+func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
     let cell = self.cardSwitch.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
     cell.imageView.image = UIImage.init(named: self.cellInfoArr()[index].0)
     cell.textLabel.text = self.cellInfoArr()[index].1
     return cell
-    }
+}
 ```
 
 #### 3、Delegate
