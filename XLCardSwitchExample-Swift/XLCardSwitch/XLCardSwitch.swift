@@ -9,14 +9,14 @@
 import UIKit
 
 //滚动切换回调方法
-typealias XLCardScollIndexChangeBlock = (Int) -> ()
+typealias XLCardScollIndexChangeBlock = (Int) -> Void
 
 //布局类
 class XLCardSwitchFlowLayout: UICollectionViewFlowLayout {
     //卡片和父视图宽度比例
-    let CARDWIDTHSCALE: CGFloat = 0.7
+    let cardWidthScale: CGFloat = 0.7
     //卡片和父视图高度比例
-    let CARDHEIGHTSCALE: CGFloat = 0.8
+    let cardHeightScale: CGFloat = 0.8
     //滚动到中间的调方法
     var indexChangeBlock: XLCardScollIndexChangeBlock?
     
@@ -66,12 +66,12 @@ class XLCardSwitchFlowLayout: UICollectionViewFlowLayout {
     //MARK 配置方法
     //卡片宽度
     func itemWidth() -> CGFloat {
-        return (self.collectionView?.bounds.size.width)! * CARDWIDTHSCALE
+        return (self.collectionView?.bounds.size.width)! * cardWidthScale
     }
     
     //卡片高度
     func itemHeight() -> CGFloat {
-        return (self.collectionView?.bounds.size.height)! * CARDHEIGHTSCALE
+        return (self.collectionView?.bounds.size.height)! * cardHeightScale
     }
     
     //设置左右缩进
@@ -113,15 +113,24 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     //公有属性
     weak var delegate: XLCardSwitchDelegate?
     weak var dataSource: XLCardSwitchDataSource?
-    var selectedIndex: Int?
-    var pagingEnabled: Bool?
+    var selectedIndex: Int = 0
+    var pagingEnabled: Bool = true
     //私有属性
-    private var _collectionView: UICollectionView?
-    private var _dragStartX: CGFloat?
-    private var _dragEndX: CGFloat?
-    private var _dragAtIndex: Int?
+    private var _dragStartX: CGFloat = 0
+    private var _dragEndX: CGFloat = 0
+    private var _dragAtIndex: Int = 0
     
-
+    private let flowlayout = XLCardSwitchFlowLayout()
+    
+    private lazy var _collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
+        view.delegate = self
+        view.dataSource = self
+        view.backgroundColor = UIColor.clear
+        view.showsHorizontalScrollIndicator = false
+        return view
+    }()
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -132,13 +141,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     }
     
     func buildUI() {
-        let flowlayout = XLCardSwitchFlowLayout.init()
-        _collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: flowlayout)
-        _collectionView?.delegate = self
-        _collectionView?.dataSource = self
-        _collectionView?.backgroundColor = UIColor.clear
-        _collectionView?.showsHorizontalScrollIndicator = false
-        self.addSubview(_collectionView!)
+        self.addSubview(_collectionView)
         
         //添加回调方法
         flowlayout.indexChangeBlock = { (index) -> () in
@@ -148,20 +151,18 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
             }
         }
         
-        //预设属性值
-        pagingEnabled = false
     }
     
     //MARK:自动布局
     override func layoutSubviews() {
         super.layoutSubviews()
-        _collectionView?.frame = self.bounds
+        _collectionView.frame = self.bounds
     }
 
     //MARK:-
     //MARK:CollectionView方法
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return (self.dataSource?.cardSwitchNumberOfCard())!
+        return (self.dataSource?.cardSwitchNumberOfCard()) ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -184,34 +185,33 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
         }
         //最小滚动距离
         let dragMiniDistance: CGFloat = self.bounds.size.width/20.0
-        if _dragStartX! - _dragEndX! >= dragMiniDistance {
-            self.selectedIndex! -= 1//向右
-        }else if _dragEndX! - _dragStartX! >= dragMiniDistance {
-            self.selectedIndex! += 1 //向左
+        if _dragStartX - _dragEndX >= dragMiniDistance {
+            self.selectedIndex -= 1//向右
+        }else if _dragEndX - _dragStartX >= dragMiniDistance {
+            self.selectedIndex += 1 //向左
         }
         
-        let maxIndex: Int  = (_collectionView?.numberOfItems(inSection: 0))! - 1
-        self.selectedIndex = self.selectedIndex! <= 0 ? 0 : self.selectedIndex
-        
-        self.selectedIndex = self.selectedIndex! >= maxIndex ? maxIndex : self.selectedIndex
+        let maxIndex: Int  = (_collectionView.numberOfItems(inSection: 0)) - 1
+        self.selectedIndex = max(self.selectedIndex, 0)
+        self.selectedIndex = min(self.selectedIndex, maxIndex)
         self.scrollToCenterAnimated(animated: true)
     }
     
     //滚动到中间
     func scrollToCenterAnimated(animated: Bool) -> () {
-        _collectionView?.scrollToItem(at: IndexPath.init(row:self.selectedIndex!, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
+        _collectionView.scrollToItem(at: IndexPath.init(row:self.selectedIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
     }
     
     //手指拖动开始
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if (!self.pagingEnabled!) {return}
+        if (!self.pagingEnabled) { return }
         _dragStartX = scrollView.contentOffset.x
         _dragAtIndex = self.selectedIndex
     }
     
     //手指拖动停止
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if (!self.pagingEnabled!) {return}
+        if (!self.pagingEnabled) { return }
         _dragEndX = scrollView.contentOffset.x
         //在主线程执行居中方法
         DispatchQueue.main.async {
@@ -223,17 +223,17 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     //MARK:执行代理方法
     //回调滚动方法
     func delegateUpdateScrollIndex(index: Int) -> () {
-        if self.delegate == nil {return}
-        if (self.delegate?.responds(to: #selector(self.delegate?.cardSwitchDidScrollToIndex(index:))))! {
-            self.delegate?.cardSwitchDidScrollToIndex?(index: index)
+        guard let delegate = self.delegate else { return }
+        if (delegate.responds(to: #selector(delegate.cardSwitchDidScrollToIndex(index:)))) {
+            delegate.cardSwitchDidScrollToIndex?(index: index)
         }
     }
     
     //回调点击方法
     func delegateSelectedAtIndex(index: Int) -> () {
-        if self.delegate == nil {return}
-        if (self.delegate?.responds(to: #selector(self.delegate?.cardSwitchDidSelectedAtIndex(index:))))! {
-            self.delegate?.cardSwitchDidSelectedAtIndex?(index: index)
+        guard let delegate = self.delegate else { return }
+        if (delegate.responds(to: #selector(delegate.cardSwitchDidSelectedAtIndex(index:)))) {
+            delegate.cardSwitchDidSelectedAtIndex?(index: index)
         }
     }
     
@@ -242,33 +242,40 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     func switchToIndex(index: Int) -> () {
         DispatchQueue.main.async {
             self.selectedIndex = index
-            self.fixCellToCenter()
+            self.scrollToCenterAnimated(animated: true)
         }
     }
     
     //向前切换
     func switchPrevious() -> () {
-        var targetIndex = self.selectedIndex! - 1
-        targetIndex = targetIndex < 0 ? 0 : targetIndex
+        guard let index = currentIndex() else { return }
+        var targetIndex = index - 1
+        targetIndex = max(0, targetIndex)
         self.switchToIndex(index: targetIndex)
     }
     
     //向后切换
     func switchNext() -> () {
-        var targetIndex = self.selectedIndex! + 1
+        guard let index = currentIndex() else { return }
+        var targetIndex = index + 1
         let maxIndex = (self.dataSource?.cardSwitchNumberOfCard())! - 1
-        targetIndex = targetIndex > maxIndex ? maxIndex : targetIndex
+        targetIndex = min(maxIndex, targetIndex)
         
         self.switchToIndex(index: targetIndex)
+    }
+    
+    func currentIndex() -> Int? {
+        let x = _collectionView.contentOffset.x + _collectionView.bounds.width/2
+        return _collectionView.indexPathForItem(at: CGPoint(x: x, y: _collectionView.bounds.height/2))?.item
     }
     
     //MARK:-
     //MARK:数据源相关方法
     open func register(cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        _collectionView?.register(cellClass, forCellWithReuseIdentifier: identifier)
+        _collectionView.register(cellClass, forCellWithReuseIdentifier: identifier)
     }
     
     open func dequeueReusableCell(withReuseIdentifier identifier: String, for index: Int) -> UICollectionViewCell {
-        return _collectionView! .dequeueReusableCell(withReuseIdentifier: identifier, for: IndexPath(row: index, section: 0))
+        return _collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: IndexPath(row: index, section: 0))
     }
 }
