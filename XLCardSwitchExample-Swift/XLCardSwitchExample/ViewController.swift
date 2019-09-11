@@ -9,10 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelegate {
-
+    //背景图
     var imageView: UIImageView = UIImageView.init()
+    //毛玻璃效果
     var blurEffectView: UIVisualEffectView = UIVisualEffectView.init()
-    
+    //滚动卡片
     lazy var cardSwitch: XLCardSwitch = {
         let temp = XLCardSwitch.init()
         temp.frame = self.view.bounds
