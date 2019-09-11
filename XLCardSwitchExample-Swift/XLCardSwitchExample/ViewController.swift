@@ -9,9 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelegate {
-    var cardSwitch:XLCardSwitch = XLCardSwitch.init()
+
     var imageView: UIImageView = UIImageView.init()
     var blurEffectView: UIVisualEffectView = UIVisualEffectView.init()
+    
+    lazy var cardSwitch: XLCardSwitch = {
+        let temp = XLCardSwitch.init()
+        temp.frame = self.view.bounds
+        temp.dataSource = self
+        temp.delegate = self
+        //注册cell
+        temp.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
+        return temp
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +32,7 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
         //添加其他部分
         self.buildOtherUI()
         //添加cardSwitch
-        self.buildCardSwitch()
+        self.view.addSubview(self.cardSwitch)
     }
     
     //自动布局
@@ -47,23 +57,14 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
         seg.addTarget(self, action: #selector(segMethod(seg:)), for: UIControl.Event.valueChanged)
         self.navigationItem.titleView = seg
         
-        //背景图片
+        //设置默认背景图片
+        self.imageView.image = UIImage.init(named: self.cellInfoArr()[0].0)
         self.view.addSubview(self.imageView)
 
         let blurEffect = UIBlurEffect.init(style: UIBlurEffect.Style.light)
         self.blurEffectView.effect = blurEffect;
         self.blurEffectView.frame = self.imageView.bounds
         self.imageView.addSubview(blurEffectView)
-    }
-    
-    func buildCardSwitch() -> () {
-        self.cardSwitch.frame = self.view.bounds
-        self.cardSwitch.dataSource = self
-        self.cardSwitch.delegate = self
-        //注册cell
-        self.cardSwitch.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
-        //添加到父视图
-        self.view.addSubview(self.cardSwitch)
     }
     
     //DataSource方法，返回总共卡片个数
@@ -80,10 +81,11 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     }
     
     //代理方法
+    //切换到了卡片
     func cardSwitchDidScrollToIndex(index: Int) {
         self.imageView.image = UIImage.init(named: self.cellInfoArr()[index].0)
     }
-    
+    //点击了卡片
     func cardSwitchDidSelectedAtIndex(index: Int) {
         print("点击了卡片-\(index)")
     }
