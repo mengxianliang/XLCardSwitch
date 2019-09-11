@@ -57,13 +57,15 @@ _cardSwitch.selectedIndex = 3;
 #### 1、创建
 
 ```swift
-self.cardSwitch.frame = self.view.bounds
-self.cardSwitch.dataSource = self
-self.cardSwitch.delegate = self
-//注册cell
-self.cardSwitch.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
-//添加到父视图
-self.view.addSubview(self.cardSwitch)
+lazy var cardSwitch: XLCardSwitch = {
+    let temp = XLCardSwitch.init()
+    temp.frame = self.view.bounds
+    temp.dataSource = self
+    temp.delegate = self
+    //注册cell
+    temp.register(cellClass: CustomCollectionViewCell.self, forCellWithReuseIdentifier:"CustomCellID")
+    return temp
+    }()
 ```
 
 #### 2、DataSource
