@@ -74,7 +74,7 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     }
     
     //DataSource方法，返回UICollectionViewCell
-    func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
+    func cardSwitchCellForItemAtIndex(index: Int) -> UICollectionViewCell {
         let cell = self.cardSwitch.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
         cell.imageView.image = UIImage(named: self.cellInfoArr()[index].0)
         cell.textLabel.text = self.cellInfoArr()[index].1

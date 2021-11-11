@@ -30,18 +30,23 @@ class XLCardSwitchFlowLayout: UICollectionViewFlowLayout {
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         //获取cell的布局
-        let originalAttributesArr = super.layoutAttributesForElements(in: rect)
+        guard let originalAttributesArr = super.layoutAttributesForElements(in: rect) else {
+            return super.layoutAttributesForElements(in: rect)
+        }
+        
+        guard let collectionView = self.collectionView else { return  originalAttributesArr }
+        
         //复制布局,以下操作，在复制布局中处理
-        var attributesArr: Array<UICollectionViewLayoutAttributes> = Array.init()
-        for attr: UICollectionViewLayoutAttributes in originalAttributesArr! {
+        var attributesArr = [UICollectionViewLayoutAttributes]()
+        for attr: UICollectionViewLayoutAttributes in originalAttributesArr {
             attributesArr.append(attr.copy() as! UICollectionViewLayoutAttributes)
         }
         
         //屏幕中线
-        let centerX: CGFloat =  (collectionView?.contentOffset.x)! + (collectionView?.bounds.size.width)!/2.0
+        let centerX: CGFloat =  collectionView.contentOffset.x + collectionView.bounds.size.width/2.0
         
         //最大移动距离，计算范围是移动出屏幕前的距离
-        let maxApart: CGFloat  = ((collectionView?.bounds.size.width)! + itemWidth())/2.0
+        let maxApart: CGFloat  = (collectionView.bounds.size.width + itemWidth())/2.0
         
         //刷新cell缩放
         for attributes: UICollectionViewLayoutAttributes in attributesArr {
@@ -67,23 +72,23 @@ class XLCardSwitchFlowLayout: UICollectionViewFlowLayout {
     /// MARK 配置方法
     /// 卡片宽度
     func itemWidth() -> CGFloat {
-        return (collectionView?.bounds.size.width)! * cardWidthScale
+        return (collectionView?.bounds.size.width ?? 0) * cardWidthScale
     }
     
     /// 卡片高度
     func itemHeight() -> CGFloat {
-        return (collectionView?.bounds.size.height)! * cardHeightScale
+        return (collectionView?.bounds.size.height ?? 0) * cardHeightScale
     }
     
     /// 设置左右缩进
     func insetX() -> CGFloat {
-        let insetX: CGFloat = ((collectionView?.bounds.size.width)! - itemWidth())/2.0
+        let insetX = ((collectionView?.bounds.size.width ?? 0) - itemWidth())/2.0
         return insetX
     }
     
     /// 上下缩进
     func insetY() -> CGFloat {
-        let insetY: CGFloat = ((collectionView?.bounds.size.height)! - itemHeight())/2.0
+        let insetY = ((collectionView?.bounds.size.height ?? 0) - itemHeight())/2.0
         return insetY
     }
     
@@ -260,7 +265,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     func switchNext() {
         guard let index = currentIndex() else { return }
         var targetIndex = index + 1
-        let maxIndex = (dataSource?.cardSwitchNumberOfCard())! - 1
+        let maxIndex = (dataSource?.cardSwitchNumberOfCard() ?? 0) - 1
         targetIndex = min(maxIndex, targetIndex)
         
         switchToIndex(index: targetIndex)
