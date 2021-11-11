@@ -10,12 +10,12 @@ import UIKit
 
 class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelegate {
     //背景图
-    var imageView: UIImageView = UIImageView.init()
+    var imageView = UIImageView()
     //毛玻璃效果
-    var blurEffectView: UIVisualEffectView = UIVisualEffectView.init()
+    var blurEffectView = UIVisualEffectView()
     //滚动卡片
     lazy var cardSwitch: XLCardSwitch = {
-        let temp = XLCardSwitch.init()
+        let temp = XLCardSwitch()
         temp.frame = self.view.bounds
         temp.dataSource = self
         temp.delegate = self
@@ -44,25 +44,25 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
         self.cardSwitch.frame = self.view.bounds
     }
     
-    func buildOtherUI() -> () {
+    func buildOtherUI() {
         //设置背景色
         self.view.backgroundColor = UIColor.white
         
         //设置navigationBar
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: "Previous", style: UIBarButtonItem.Style.plain, target: self, action: #selector(switchPrevious))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Previous", style: UIBarButtonItem.Style.plain, target: self, action: #selector(switchPrevious))
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Next", style: UIBarButtonItem.Style.plain, target: self, action: #selector(switchNext))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: UIBarButtonItem.Style.plain, target: self, action: #selector(switchNext))
         
-        let seg = UISegmentedControl.init(items: ["正常滚动","自动居中"])
+        let seg = UISegmentedControl(items: ["正常滚动","自动居中"])
         seg.selectedSegmentIndex = 0
         seg.addTarget(self, action: #selector(segMethod(seg:)), for: UIControl.Event.valueChanged)
         self.navigationItem.titleView = seg
         
         //设置默认背景图片
-        self.imageView.image = UIImage.init(named: self.cellInfoArr()[0].0)
+        self.imageView.image = UIImage(named: self.cellInfoArr()[0].0)
         self.view.addSubview(self.imageView)
 
-        let blurEffect = UIBlurEffect.init(style: UIBlurEffect.Style.light)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         self.blurEffectView.effect = blurEffect;
         self.blurEffectView.frame = self.imageView.bounds
         self.imageView.addSubview(blurEffectView)
@@ -76,7 +76,7 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     //DataSource方法，返回UICollectionViewCell
     func cardSwitchCellForItemAtIndex(index: Int) -> (UICollectionViewCell) {
         let cell = self.cardSwitch.dequeueReusableCell(withReuseIdentifier:"CustomCellID", for: index) as! CustomCollectionViewCell
-        cell.imageView.image = UIImage.init(named: self.cellInfoArr()[index].0)
+        cell.imageView.image = UIImage(named: self.cellInfoArr()[index].0)
         cell.textLabel.text = self.cellInfoArr()[index].1
         return cell
     }
@@ -84,7 +84,7 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     //代理方法
     //切换到了卡片
     func cardSwitchDidScrollToIndex(index: Int) {
-        self.imageView.image = UIImage.init(named: self.cellInfoArr()[index].0)
+        self.imageView.image = UIImage(named: self.cellInfoArr()[index].0)
     }
     //点击了卡片
     func cardSwitchDidSelectedAtIndex(index: Int) {
@@ -93,15 +93,15 @@ class ViewController: UIViewController,XLCardSwitchDataSource,XLCardSwitchDelega
     
     //MARK-
     //MARK其他方法
-    @objc func switchPrevious() -> () {
+    @objc func switchPrevious() {
         self.cardSwitch.switchPrevious()
     }
     
-    @objc func switchNext() -> () {
+    @objc func switchNext() {
         self.cardSwitch.switchNext()
     }
     
-    @objc func segMethod(seg: UISegmentedControl) -> () {
+    @objc func segMethod(seg: UISegmentedControl) {
         self.cardSwitch.pagingEnabled = (seg.selectedSegmentIndex == 1)
     }
     

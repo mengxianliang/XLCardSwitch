@@ -97,9 +97,9 @@ class XLCardSwitchFlowLayout: UICollectionViewFlowLayout {
 /// 代理
 @objc protocol XLCardSwitchDelegate: NSObjectProtocol {
     /// 滑动切换到新的位置回调
-    @objc optional func cardSwitchDidScrollToIndex(index: Int) -> ()
+    @objc optional func cardSwitchDidScrollToIndex(index: Int)
     /// 手动点击了
-    @objc optional func cardSwitchDidSelectedAtIndex(index: Int) -> ()
+    @objc optional func cardSwitchDidSelectedAtIndex(index: Int)
 }
 
 /// 数据源
@@ -147,7 +147,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
         addSubview(collectionView)
         
         /// 添加回调方法
-        flowlayout.indexChangeBlock = { (index) -> () in
+        flowlayout.indexChangeBlock = { (index) in
             if self.selectedIndex != index {
                 self.selectedIndex = index
                 self.delegateUpdateScrollIndex(index: index)
@@ -180,7 +180,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     
     /// MARK:-
     /// MARK:ScrollViewDelegate
-    @objc func fixCellToCenter() -> () {
+    @objc func fixCellToCenter() {
         if selectedIndex != dragAtIndex {
             scrollToCenterAnimated(animated: true)
             return
@@ -200,7 +200,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     }
     
     /// 滚动到中间
-    func scrollToCenterAnimated(animated: Bool) -> () {
+    func scrollToCenterAnimated(animated: Bool) {
         collectionView.scrollToItem(at: IndexPath.init(row:selectedIndex, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
     }
     
@@ -224,7 +224,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     /// MARK:-
     /// MARK:执行代理方法
     /// 回调滚动方法
-    func delegateUpdateScrollIndex(index: Int) -> () {
+    func delegateUpdateScrollIndex(index: Int) {
         guard let delegate = delegate else { return }
         if (delegate.responds(to: #selector(delegate.cardSwitchDidScrollToIndex(index:)))) {
             delegate.cardSwitchDidScrollToIndex?(index: index)
@@ -232,7 +232,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     }
     
     /// 回调点击方法
-    func delegateSelectedAtIndex(index: Int) -> () {
+    func delegateSelectedAtIndex(index: Int) {
         guard let delegate = delegate else { return }
         if (delegate.responds(to: #selector(delegate.cardSwitchDidSelectedAtIndex(index:)))) {
             delegate.cardSwitchDidSelectedAtIndex?(index: index)
@@ -241,7 +241,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     
     /// MARK:-
     /// MARK:切换位置方法
-    func switchToIndex(index: Int) -> () {
+    func switchToIndex(index: Int) {
         DispatchQueue.main.async {
             self.selectedIndex = index
             self.scrollToCenterAnimated(animated: true)
@@ -249,7 +249,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     }
     
     /// 向前切换
-    func switchPrevious() -> () {
+    func switchPrevious() {
         guard let index = currentIndex() else { return }
         var targetIndex = index - 1
         targetIndex = max(0, targetIndex)
@@ -257,7 +257,7 @@ class XLCardSwitch: UIView ,UICollectionViewDelegate,UICollectionViewDataSource 
     }
     
     /// 向后切换
-    func switchNext() -> () {
+    func switchNext() {
         guard let index = currentIndex() else { return }
         var targetIndex = index + 1
         let maxIndex = (dataSource?.cardSwitchNumberOfCard())! - 1

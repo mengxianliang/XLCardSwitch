@@ -10,8 +10,8 @@ import UIKit
 
 class CustomCollectionViewCell: UICollectionViewCell {
     
-    var textLabel: UILabel = UILabel.init()
-    var imageView: UIImageView = UIImageView.init()
+    var textLabel = UILabel()
+    var imageView = UIImageView()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -19,30 +19,30 @@ class CustomCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.initUI()
+        initUI()
     }
     
-    func initUI() -> () {
-        self.layer.cornerRadius = 10.0
-        self.layer.masksToBounds = true
-        self.backgroundColor = UIColor.white
+    func initUI() {
+        layer.cornerRadius = 10.0
+        layer.masksToBounds = true
+        backgroundColor = UIColor.white
         
-        let imageH = self.bounds.size.height*0.8
-        let labelH = self.bounds.size.height*0.2
-        
-        
-        self.imageView.frame = CGRect(x: 0, y: 0, width: self.bounds.size.width, height: imageH)
-        self.imageView.contentMode = UIView.ContentMode.scaleAspectFill
-        self.imageView.layer.masksToBounds = true
-        self.addSubview(self.imageView)
+        let imageH = bounds.size.height*0.8
+        let labelH = bounds.size.height*0.2
         
         
-        self.textLabel.frame = CGRect(x: 0, y: imageH, width: self.bounds.size.width, height: labelH)
-        self.textLabel.textColor = UIColor.init(red: 102.0/255.0, green: 102.0/255.0, blue: 102.0/255.0, alpha: 1)
-        self.textLabel.font = UIFont.systemFont(ofSize: 22)
-        self.textLabel.textAlignment = NSTextAlignment.center;
-        self.textLabel.adjustsFontSizeToFitWidth = true;
-        self.addSubview(self.textLabel)
+        imageView.frame = CGRect(x: 0, y: 0, width: bounds.size.width, height: imageH)
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
+        imageView.layer.masksToBounds = true
+        addSubview(imageView)
+        
+        
+        textLabel.frame = CGRect(x: 0, y: imageH, width: bounds.size.width, height: labelH)
+        textLabel.textColor = UIColor(red: 102.0/255.0, green: 102.0/255.0, blue: 102.0/255.0, alpha: 1)
+        textLabel.font = UIFont.systemFont(ofSize: 22)
+        textLabel.textAlignment = NSTextAlignment.center;
+        textLabel.adjustsFontSizeToFitWidth = true;
+        addSubview(textLabel)
     }
     
 }
